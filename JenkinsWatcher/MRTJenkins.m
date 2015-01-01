@@ -24,6 +24,8 @@
 @property (nonatomic) BOOL isConnecting;
 @property (nonatomic, strong) BFTask *connectionTask;
 
+@property (nonatomic, strong) NSTimer *refreshTimer;
+
 @end
 
 @implementation MRTJenkins
@@ -44,6 +46,7 @@
         
         _autoRefresh = YES;
         _autoRefreshInterval = 30;
+        _refreshTimer = nil;
         
         _failedJobs = [NSArray array];
     }
@@ -66,7 +69,10 @@
                            self.isAvailable = (jsonDict != nil && jsonDict.count != 0);
                            [task setResult:@(YES)];
                            
-                           // TODO: Start auto fetch
+                           if (self.autoRefresh && self.refreshTimer == nil) {
+                               [self startRefreshTimer];
+                           }
+                           
                            // TODO: Notification
                        }
                        else {
@@ -141,6 +147,40 @@
     }
     
     return [array copy];
+}
+
+- (void)setAutoRefresh:(BOOL)autoRefresh {
+    if (_autoRefresh != autoRefresh) {
+        _autoRefresh = autoRefresh;
+        
+        [self.refreshTimer invalidate];
+        self.refreshTimer = nil;
+        
+        if (_autoRefresh) {
+            [self startRefreshTimer];
+        }
+    }
+}
+
+- (void)setAutoRefreshInterval:(NSUInteger)autoRefreshInterval {
+    if (_autoRefreshInterval != autoRefreshInterval) {
+        _autoRefreshInterval = autoRefreshInterval;
+        
+        if (self.autoRefresh) {
+            [self.refreshTimer invalidate];
+            self.refreshTimer = nil;
+            
+            [self startRefreshTimer];
+        }
+    }
+}
+
+- (void)startRefreshTimer {
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.autoRefreshInterval target:self selector:@selector(refreshTick:) userInfo:nil repeats:YES];
+}
+
+- (void)refreshTick:(NSTimer*)timer {
+    [self fetchFailedJobs];
 }
 
 #pragma mark - Helpers
