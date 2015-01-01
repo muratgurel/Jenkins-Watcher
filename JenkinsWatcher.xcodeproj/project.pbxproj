@@ -1,1075 +1,547 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>1AA89B33CBE6C4487091D164</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6FFCBF19228B6AE1FDA9C9B3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AC01A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695ACB1A5576D00078CA90</string>
-				<string>1F695AE51A5576D00078CA90</string>
-				<string>1F695ACA1A5576D00078CA90</string>
-				<string>2A1EEEAFF4FD2289405BB6B7</string>
-				<string>1AA89B33CBE6C4487091D164</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AC11A5576D00078CA90</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0610</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Murat Gurel</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>1F695AC81A5576D00078CA90</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>6.1.1</string>
-					</dict>
-					<key>1F695AE11A5576D00078CA90</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>6.1.1</string>
-						<key>TestTargetID</key>
-						<string>1F695AC81A5576D00078CA90</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>1F695AC41A5576D00078CA90</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>1F695AC01A5576D00078CA90</string>
-			<key>productRefGroup</key>
-			<string>1F695ACA1A5576D00078CA90</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>1F695AC81A5576D00078CA90</string>
-				<string>1F695AE11A5576D00078CA90</string>
-			</array>
-		</dict>
-		<key>1F695AC41A5576D00078CA90</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>1F695AEA1A5576D00078CA90</string>
-				<string>1F695AEB1A5576D00078CA90</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>1F695AC51A5576D00078CA90</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1F695AD21A5576D00078CA90</string>
-				<string>1F695AF51A5578270078CA90</string>
-				<string>1F695AD01A5576D00078CA90</string>
-				<string>1F695AFD1A55A8710078CA90</string>
-				<string>1F695AFA1A55869F0078CA90</string>
-				<string>1F695AD81A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F695AC61A5576D00078CA90</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1FC61E0CE5C41EC9E5173326</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F695AC71A5576D00078CA90</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1F695ADA1A5576D00078CA90</string>
-				<string>1F695ADD1A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F695AC81A5576D00078CA90</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>1F695AEC1A5576D00078CA90</string>
-			<key>buildPhases</key>
-			<array>
-				<string>88FA6F19FED45B3E0AB0B64C</string>
-				<string>1F695AC51A5576D00078CA90</string>
-				<string>1F695AC61A5576D00078CA90</string>
-				<string>1F695AC71A5576D00078CA90</string>
-				<string>915BBCC907A1A23E188A89F5</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>JenkinsWatcher</string>
-			<key>productName</key>
-			<string>JenkinsWatcher</string>
-			<key>productReference</key>
-			<string>1F695AC91A5576D00078CA90</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>1F695AC91A5576D00078CA90</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>JenkinsWatcher.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1F695ACA1A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AC91A5576D00078CA90</string>
-				<string>1F695AE21A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ACB1A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AF71A5586860078CA90</string>
-				<string>1F695AF21A5577A70078CA90</string>
-				<string>1F695ACE1A5576D00078CA90</string>
-				<string>1F695ACF1A5576D00078CA90</string>
-				<string>1F695ADB1A5576D00078CA90</string>
-				<string>1F695ACC1A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>JenkinsWatcher</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ACC1A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AD61A5576D00078CA90</string>
-				<string>1F695AD91A5576D00078CA90</string>
-				<string>1F695ACD1A5576D00078CA90</string>
-				<string>1F695AD11A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ACD1A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ACE1A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>AppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ACF1A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>AppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AD01A5576D00078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695ACF1A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695AD11A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AD21A5576D00078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AD11A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695AD61A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AD71A5576D00078CA90</string>
-			</array>
-			<key>currentVersion</key>
-			<string>1F695AD71A5576D00078CA90</string>
-			<key>isa</key>
-			<string>XCVersionGroup</string>
-			<key>path</key>
-			<string>JenkinsWatcher.xcdatamodeld</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-			<key>versionGroupType</key>
-			<string>wrapper.xcdatamodel</string>
-		</dict>
-		<key>1F695AD71A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.xcdatamodel</string>
-			<key>path</key>
-			<string>JenkinsWatcher.xcdatamodel</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AD81A5576D00078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AD61A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695AD91A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ADA1A5576D00078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AD91A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695ADB1A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695ADC1A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ADC1A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695ADD1A5576D00078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695ADB1A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695ADE1A5576D00078CA90</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1F695AE91A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F695ADF1A5576D00078CA90</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F695AE01A5576D00078CA90</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1F695AE11A5576D00078CA90</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>1F695AEF1A5576D00078CA90</string>
-			<key>buildPhases</key>
-			<array>
-				<string>1F695ADE1A5576D00078CA90</string>
-				<string>1F695ADF1A5576D00078CA90</string>
-				<string>1F695AE01A5576D00078CA90</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>1F695AE41A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>JenkinsWatcherTests</string>
-			<key>productName</key>
-			<string>JenkinsWatcherTests</string>
-			<key>productReference</key>
-			<string>1F695AE21A5576D00078CA90</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>1F695AE21A5576D00078CA90</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>JenkinsWatcherTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1F695AE31A5576D00078CA90</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>1F695AC11A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>1F695AC81A5576D00078CA90</string>
-			<key>remoteInfo</key>
-			<string>JenkinsWatcher</string>
-		</dict>
-		<key>1F695AE41A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>1F695AC81A5576D00078CA90</string>
-			<key>targetProxy</key>
-			<string>1F695AE31A5576D00078CA90</string>
-		</dict>
-		<key>1F695AE51A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AE81A5576D00078CA90</string>
-				<string>1F695AE61A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>JenkinsWatcherTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AE61A5576D00078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AE71A5576D00078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AE71A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AE81A5576D00078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>JenkinsWatcherTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AE91A5576D00078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AE81A5576D00078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695AEA1A5576D00078CA90</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>-</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>MACOSX_DEPLOYMENT_TARGET</key>
-				<string>10.10</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>macosx</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>1F695AEB1A5576D00078CA90</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>-</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>MACOSX_DEPLOYMENT_TARGET</key>
-				<string>10.10</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>macosx</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>1F695AEC1A5576D00078CA90</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>1F695AED1A5576D00078CA90</string>
-				<string>1F695AEE1A5576D00078CA90</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>1F695AED1A5576D00078CA90</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>B00DE01850A0CA47C7095031</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>JenkinsWatcher/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>1F695AEE1A5576D00078CA90</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BF59E4A4F7DCF9AFDD38ECFF</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>JenkinsWatcher/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>1F695AEF1A5576D00078CA90</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>1F695AF01A5576D00078CA90</string>
-				<string>1F695AF11A5576D00078CA90</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>1F695AF01A5576D00078CA90</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>JenkinsWatcherTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/JenkinsWatcher.app/Contents/MacOS/JenkinsWatcher</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>1F695AF11A5576D00078CA90</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>JenkinsWatcherTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/JenkinsWatcher.app/Contents/MacOS/JenkinsWatcher</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>1F695AF21A5577A70078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AF31A5578270078CA90</string>
-				<string>1F695AF41A5578270078CA90</string>
-				<string>1F695AF61A557FA30078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Status Bar</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AF31A5578270078CA90</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>MRTAppStatusBar.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AF41A5578270078CA90</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>MRTAppStatusBar.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AF51A5578270078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AF41A5578270078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695AF61A557FA30078CA90</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>MRTStatusBarDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AF71A5586860078CA90</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1F695AF81A55869F0078CA90</string>
-				<string>1F695AF91A55869F0078CA90</string>
-				<string>1F695AFB1A55A8710078CA90</string>
-				<string>1F695AFC1A55A8710078CA90</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Jenkins</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AF81A55869F0078CA90</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>MRTJenkins.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AF91A55869F0078CA90</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>MRTJenkins.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AFA1A55869F0078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AF91A55869F0078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F695AFB1A55A8710078CA90</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>MRTJob.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AFC1A55A8710078CA90</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>MRTJob.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1F695AFD1A55A8710078CA90</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1F695AFC1A55A8710078CA90</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1FC61E0CE5C41EC9E5173326</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6FFCBF19228B6AE1FDA9C9B3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2A1EEEAFF4FD2289405BB6B7</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B00DE01850A0CA47C7095031</string>
-				<string>BF59E4A4F7DCF9AFDD38ECFF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6FFCBF19228B6AE1FDA9C9B3</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-JenkinsWatcher.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>88FA6F19FED45B3E0AB0B64C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>915BBCC907A1A23E188A89F5</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>B00DE01850A0CA47C7095031</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-JenkinsWatcher.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BF59E4A4F7DCF9AFDD38ECFF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-JenkinsWatcher.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>1F695AC11A5576D00078CA90</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F695AD01A5576D00078CA90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695ACF1A5576D00078CA90 /* AppDelegate.m */; };
+		1F695AD21A5576D00078CA90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AD11A5576D00078CA90 /* main.m */; };
+		1F695AD81A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AD61A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld */; };
+		1F695ADA1A5576D00078CA90 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F695AD91A5576D00078CA90 /* Images.xcassets */; };
+		1F695ADD1A5576D00078CA90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F695ADB1A5576D00078CA90 /* Main.storyboard */; };
+		1F695AE91A5576D00078CA90 /* JenkinsWatcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AE81A5576D00078CA90 /* JenkinsWatcherTests.m */; };
+		1F695AF51A5578270078CA90 /* MRTAppStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AF41A5578270078CA90 /* MRTAppStatusBar.m */; };
+		1F695AFA1A55869F0078CA90 /* MRTJenkins.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AF91A55869F0078CA90 /* MRTJenkins.m */; };
+		1F695AFD1A55A8710078CA90 /* MRTJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AFC1A55A8710078CA90 /* MRTJob.m */; };
+		1F695B001A55BA9C0078CA90 /* JobItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F695AFF1A55BA9C0078CA90 /* JobItemView.xib */; };
+		1F695B031A55C2510078CA90 /* MRTJobItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695B021A55C2510078CA90 /* MRTJobItem.m */; };
+		1FC61E0CE5C41EC9E5173326 /* libPods-JenkinsWatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1F695AE31A5576D00078CA90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F695AC11A5576D00078CA90 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F695AC81A5576D00078CA90;
+			remoteInfo = JenkinsWatcher;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1F695AC91A5576D00078CA90 /* JenkinsWatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JenkinsWatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F695ACD1A5576D00078CA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F695ACE1A5576D00078CA90 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1F695ACF1A5576D00078CA90 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1F695AD11A5576D00078CA90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1F695AD71A5576D00078CA90 /* JenkinsWatcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JenkinsWatcher.xcdatamodel; sourceTree = "<group>"; };
+		1F695AD91A5576D00078CA90 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1F695ADC1A5576D00078CA90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1F695AE21A5576D00078CA90 /* JenkinsWatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JenkinsWatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F695AE71A5576D00078CA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F695AE81A5576D00078CA90 /* JenkinsWatcherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JenkinsWatcherTests.m; sourceTree = "<group>"; };
+		1F695AF31A5578270078CA90 /* MRTAppStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTAppStatusBar.h; sourceTree = "<group>"; };
+		1F695AF41A5578270078CA90 /* MRTAppStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTAppStatusBar.m; sourceTree = "<group>"; };
+		1F695AF61A557FA30078CA90 /* MRTStatusBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRTStatusBarDelegate.h; sourceTree = "<group>"; };
+		1F695AF81A55869F0078CA90 /* MRTJenkins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTJenkins.h; sourceTree = "<group>"; };
+		1F695AF91A55869F0078CA90 /* MRTJenkins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTJenkins.m; sourceTree = "<group>"; };
+		1F695AFB1A55A8710078CA90 /* MRTJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTJob.h; sourceTree = "<group>"; };
+		1F695AFC1A55A8710078CA90 /* MRTJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTJob.m; sourceTree = "<group>"; };
+		1F695AFF1A55BA9C0078CA90 /* JobItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JobItemView.xib; sourceTree = "<group>"; };
+		1F695B011A55C2510078CA90 /* MRTJobItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTJobItem.h; sourceTree = "<group>"; };
+		1F695B021A55C2510078CA90 /* MRTJobItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTJobItem.m; sourceTree = "<group>"; };
+		6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JenkinsWatcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00DE01850A0CA47C7095031 /* Pods-JenkinsWatcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsWatcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.debug.xcconfig"; sourceTree = "<group>"; };
+		BF59E4A4F7DCF9AFDD38ECFF /* Pods-JenkinsWatcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsWatcher.release.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F695AC61A5576D00078CA90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FC61E0CE5C41EC9E5173326 /* libPods-JenkinsWatcher.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F695ADF1A5576D00078CA90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1AA89B33CBE6C4487091D164 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F695AC01A5576D00078CA90 = {
+			isa = PBXGroup;
+			children = (
+				1F695ACB1A5576D00078CA90 /* JenkinsWatcher */,
+				1F695AE51A5576D00078CA90 /* JenkinsWatcherTests */,
+				1F695ACA1A5576D00078CA90 /* Products */,
+				2A1EEEAFF4FD2289405BB6B7 /* Pods */,
+				1AA89B33CBE6C4487091D164 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1F695ACA1A5576D00078CA90 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AC91A5576D00078CA90 /* JenkinsWatcher.app */,
+				1F695AE21A5576D00078CA90 /* JenkinsWatcherTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F695ACB1A5576D00078CA90 /* JenkinsWatcher */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AFE1A55BA850078CA90 /* Job Item */,
+				1F695AF71A5586860078CA90 /* Jenkins */,
+				1F695AF21A5577A70078CA90 /* Status Bar */,
+				1F695ACE1A5576D00078CA90 /* AppDelegate.h */,
+				1F695ACF1A5576D00078CA90 /* AppDelegate.m */,
+				1F695ADB1A5576D00078CA90 /* Main.storyboard */,
+				1F695ACC1A5576D00078CA90 /* Supporting Files */,
+			);
+			path = JenkinsWatcher;
+			sourceTree = "<group>";
+		};
+		1F695ACC1A5576D00078CA90 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AD61A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld */,
+				1F695AD91A5576D00078CA90 /* Images.xcassets */,
+				1F695ACD1A5576D00078CA90 /* Info.plist */,
+				1F695AD11A5576D00078CA90 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1F695AE51A5576D00078CA90 /* JenkinsWatcherTests */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AE81A5576D00078CA90 /* JenkinsWatcherTests.m */,
+				1F695AE61A5576D00078CA90 /* Supporting Files */,
+			);
+			path = JenkinsWatcherTests;
+			sourceTree = "<group>";
+		};
+		1F695AE61A5576D00078CA90 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AE71A5576D00078CA90 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1F695AF21A5577A70078CA90 /* Status Bar */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AF31A5578270078CA90 /* MRTAppStatusBar.h */,
+				1F695AF41A5578270078CA90 /* MRTAppStatusBar.m */,
+				1F695AF61A557FA30078CA90 /* MRTStatusBarDelegate.h */,
+			);
+			name = "Status Bar";
+			sourceTree = "<group>";
+		};
+		1F695AF71A5586860078CA90 /* Jenkins */ = {
+			isa = PBXGroup;
+			children = (
+				1F695AF81A55869F0078CA90 /* MRTJenkins.h */,
+				1F695AF91A55869F0078CA90 /* MRTJenkins.m */,
+				1F695AFB1A55A8710078CA90 /* MRTJob.h */,
+				1F695AFC1A55A8710078CA90 /* MRTJob.m */,
+			);
+			name = Jenkins;
+			sourceTree = "<group>";
+		};
+		1F695AFE1A55BA850078CA90 /* Job Item */ = {
+			isa = PBXGroup;
+			children = (
+				1F695B011A55C2510078CA90 /* MRTJobItem.h */,
+				1F695B021A55C2510078CA90 /* MRTJobItem.m */,
+				1F695AFF1A55BA9C0078CA90 /* JobItemView.xib */,
+			);
+			name = "Job Item";
+			sourceTree = "<group>";
+		};
+		2A1EEEAFF4FD2289405BB6B7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B00DE01850A0CA47C7095031 /* Pods-JenkinsWatcher.debug.xcconfig */,
+				BF59E4A4F7DCF9AFDD38ECFF /* Pods-JenkinsWatcher.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1F695AC81A5576D00078CA90 /* JenkinsWatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F695AEC1A5576D00078CA90 /* Build configuration list for PBXNativeTarget "JenkinsWatcher" */;
+			buildPhases = (
+				88FA6F19FED45B3E0AB0B64C /* Check Pods Manifest.lock */,
+				1F695AC51A5576D00078CA90 /* Sources */,
+				1F695AC61A5576D00078CA90 /* Frameworks */,
+				1F695AC71A5576D00078CA90 /* Resources */,
+				915BBCC907A1A23E188A89F5 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JenkinsWatcher;
+			productName = JenkinsWatcher;
+			productReference = 1F695AC91A5576D00078CA90 /* JenkinsWatcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1F695AE11A5576D00078CA90 /* JenkinsWatcherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F695AEF1A5576D00078CA90 /* Build configuration list for PBXNativeTarget "JenkinsWatcherTests" */;
+			buildPhases = (
+				1F695ADE1A5576D00078CA90 /* Sources */,
+				1F695ADF1A5576D00078CA90 /* Frameworks */,
+				1F695AE01A5576D00078CA90 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F695AE41A5576D00078CA90 /* PBXTargetDependency */,
+			);
+			name = JenkinsWatcherTests;
+			productName = JenkinsWatcherTests;
+			productReference = 1F695AE21A5576D00078CA90 /* JenkinsWatcherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F695AC11A5576D00078CA90 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Murat Gurel";
+				TargetAttributes = {
+					1F695AC81A5576D00078CA90 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					1F695AE11A5576D00078CA90 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 1F695AC81A5576D00078CA90;
+					};
+				};
+			};
+			buildConfigurationList = 1F695AC41A5576D00078CA90 /* Build configuration list for PBXProject "JenkinsWatcher" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1F695AC01A5576D00078CA90;
+			productRefGroup = 1F695ACA1A5576D00078CA90 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1F695AC81A5576D00078CA90 /* JenkinsWatcher */,
+				1F695AE11A5576D00078CA90 /* JenkinsWatcherTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1F695AC71A5576D00078CA90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F695ADA1A5576D00078CA90 /* Images.xcassets in Resources */,
+				1F695B001A55BA9C0078CA90 /* JobItemView.xib in Resources */,
+				1F695ADD1A5576D00078CA90 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F695AE01A5576D00078CA90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		88FA6F19FED45B3E0AB0B64C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		915BBCC907A1A23E188A89F5 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F695AC51A5576D00078CA90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F695AD21A5576D00078CA90 /* main.m in Sources */,
+				1F695AF51A5578270078CA90 /* MRTAppStatusBar.m in Sources */,
+				1F695B031A55C2510078CA90 /* MRTJobItem.m in Sources */,
+				1F695AD01A5576D00078CA90 /* AppDelegate.m in Sources */,
+				1F695AFD1A55A8710078CA90 /* MRTJob.m in Sources */,
+				1F695AFA1A55869F0078CA90 /* MRTJenkins.m in Sources */,
+				1F695AD81A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F695ADE1A5576D00078CA90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F695AE91A5576D00078CA90 /* JenkinsWatcherTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1F695AE41A5576D00078CA90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F695AC81A5576D00078CA90 /* JenkinsWatcher */;
+			targetProxy = 1F695AE31A5576D00078CA90 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1F695ADB1A5576D00078CA90 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F695ADC1A5576D00078CA90 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1F695AEA1A5576D00078CA90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1F695AEB1A5576D00078CA90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1F695AED1A5576D00078CA90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B00DE01850A0CA47C7095031 /* Pods-JenkinsWatcher.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = JenkinsWatcher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1F695AEE1A5576D00078CA90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF59E4A4F7DCF9AFDD38ECFF /* Pods-JenkinsWatcher.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = JenkinsWatcher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1F695AF01A5576D00078CA90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JenkinsWatcherTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JenkinsWatcher.app/Contents/MacOS/JenkinsWatcher";
+			};
+			name = Debug;
+		};
+		1F695AF11A5576D00078CA90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JenkinsWatcherTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JenkinsWatcher.app/Contents/MacOS/JenkinsWatcher";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F695AC41A5576D00078CA90 /* Build configuration list for PBXProject "JenkinsWatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F695AEA1A5576D00078CA90 /* Debug */,
+				1F695AEB1A5576D00078CA90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F695AEC1A5576D00078CA90 /* Build configuration list for PBXNativeTarget "JenkinsWatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F695AED1A5576D00078CA90 /* Debug */,
+				1F695AEE1A5576D00078CA90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F695AEF1A5576D00078CA90 /* Build configuration list for PBXNativeTarget "JenkinsWatcherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F695AF01A5576D00078CA90 /* Debug */,
+				1F695AF11A5576D00078CA90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1F695AD61A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1F695AD71A5576D00078CA90 /* JenkinsWatcher.xcdatamodel */,
+			);
+			currentVersion = 1F695AD71A5576D00078CA90 /* JenkinsWatcher.xcdatamodel */;
+			path = JenkinsWatcher.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 1F695AC11A5576D00078CA90 /* Project object */;
+}
