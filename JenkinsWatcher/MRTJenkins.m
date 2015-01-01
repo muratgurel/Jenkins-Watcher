@@ -11,6 +11,10 @@
 #import <Bolts/Bolts.h>
 #import <XMLDictionary/XMLDictionary.h>
 
+NSString* const kJenkinsDidBecomeAvailableNotification = @"com.muratgurel.notification.jenkinsAvailable";
+NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.notification.jenkinsUnavailable";;
+NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notification.jenkinsFailedJobUpdate";
+
 @interface MRTJenkins ()
 
 @property (nonatomic, readwrite, copy) NSURL *url;
@@ -72,8 +76,6 @@
                            if (self.autoRefresh && self.refreshTimer == nil) {
                                [self startRefreshTimer];
                            }
-                           
-                           // TODO: Notification
                        }
                        else {
                            self.isAvailable = NO;
@@ -106,7 +108,8 @@
                         if (urlResponse.statusCode == 200) {
                             self.failedJobs = [self parseResponseXML:data];
                             [task setResult:self.failedJobs];
-                            // TODO: Notification
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kJenkinsDidUpdateFailedJobsNotification object:self];
                         }
                         else {
                             self.failedJobs = [NSArray array];
@@ -149,6 +152,16 @@
     return [array copy];
 }
 
+- (void)startRefreshTimer {
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.autoRefreshInterval target:self selector:@selector(refreshTick:) userInfo:nil repeats:YES];
+}
+
+- (void)refreshTick:(NSTimer*)timer {
+    [self fetchFailedJobs];
+}
+
+#pragma mark - Overriden Setters
+
 - (void)setAutoRefresh:(BOOL)autoRefresh {
     if (_autoRefresh != autoRefresh) {
         _autoRefresh = autoRefresh;
@@ -175,12 +188,17 @@
     }
 }
 
-- (void)startRefreshTimer {
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.autoRefreshInterval target:self selector:@selector(refreshTick:) userInfo:nil repeats:YES];
-}
-
-- (void)refreshTick:(NSTimer*)timer {
-    [self fetchFailedJobs];
+- (void)setIsAvailable:(BOOL)isAvailable {
+    if (_isAvailable != isAvailable) {
+        _isAvailable = isAvailable;
+        
+        if (_isAvailable) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJenkinsDidBecomeAvailableNotification object:self];
+        }
+        else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJenkinsDidBecomeUnavailableNotification object:self];
+        }
+    }
 }
 
 #pragma mark - Helpers

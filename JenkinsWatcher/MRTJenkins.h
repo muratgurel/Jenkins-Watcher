@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* const kJenkinsDidBecomeAvailableNotification;
+extern NSString* const kJenkinsDidBecomeUnavailableNotification;
+extern NSString* const kJenkinsDidUpdateFailedJobsNotification;
+
 @class BFTask;
 
 @interface MRTJenkins : NSObject
