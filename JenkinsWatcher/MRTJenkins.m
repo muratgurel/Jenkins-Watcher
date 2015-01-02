@@ -101,7 +101,7 @@ NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notif
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
         NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:[self failedJobsURL]
+        [[session dataTaskWithURL:[self latestBuildsURL]
                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
@@ -138,15 +138,22 @@ NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notif
     NSDictionary *xmlDictionary = [parser dictionaryWithData:xmlData];
     
     NSMutableArray *array = [NSMutableArray array];
+    NSRegularExpression *regex = [MRTJob titleStatusRegex];
     
     id entries = [xmlDictionary objectForKey:@"entry"];
     if ([entries isKindOfClass:[NSArray class]]) {
         for (NSDictionary *entryDictionary in (NSArray*)entries) {
-            [array addObject:[[MRTJob alloc] initWithDictionary:entryDictionary]];
+            NSString *title = [entryDictionary objectForKey:@"title"];
+            if ([regex numberOfMatchesInString:title options:kNilOptions range:NSMakeRange(0, [title length])] > 0) {
+                [array addObject:[[MRTJob alloc] initWithDictionary:entryDictionary]];
+            }
         }
     }
     else if ([entries isKindOfClass:[NSDictionary class]]) {
-        [array addObject:[[MRTJob alloc] initWithDictionary:(NSDictionary*)entries]];
+        NSString *title = [entries objectForKey:@"title"];
+        if ([regex numberOfMatchesInString:title options:kNilOptions range:NSMakeRange(0, [title length])] > 0) {
+            [array addObject:[[MRTJob alloc] initWithDictionary:(NSDictionary*)entries]];
+        }
     }
     
     return [array copy];
@@ -207,8 +214,8 @@ NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notif
     return [self.url URLByAppendingPathComponent:@"api/json"];
 }
 
-- (NSURL*)failedJobsURL {
-    return [self.url URLByAppendingPathComponent:@"rssFailed"];
+- (NSURL*)latestBuildsURL {
+    return [self.url URLByAppendingPathComponent:@"rssLatest"];
 }
 
 @end

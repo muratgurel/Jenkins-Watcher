@@ -22,13 +22,24 @@
     if (self) {
         _jobID = [dictionary objectForKey:@"id"];
         _url = [NSURL URLWithString:[dictionary valueForKeyPath:@"link._href"]];
-        _name = [[dictionary objectForKey:@"title"] stringByReplacingOccurrencesOfString:@" (broken since this build)" withString:@""];
+        
+        NSString *title = [dictionary objectForKey:@"title"];
+        _name = [[[self class] titleStatusRegex] stringByReplacingMatchesInString:title
+                                                                          options:kNilOptions
+                                                                            range:NSMakeRange(0, [title length])
+                                                                     withTemplate:@""];
     }
     return self;
 }
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"Job(%@)", self.name];
+}
+
++ (NSRegularExpression*)titleStatusRegex {
+    return [NSRegularExpression regularExpressionWithPattern:@"\\s[(]broken since[\\s\\w#]+[)]$"
+                                                     options:kNilOptions
+                                                       error:nil];
 }
 
 #pragma MARK - Equality
