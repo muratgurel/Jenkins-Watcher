@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "MRTStatusBarDelegate.h"
 
+@class MRTJobItem;
+
 @interface MRTAppStatusBar : NSObject
 
 - (id)initWithDelegate:(id<MRTStatusBarDelegate>)delegate;
+
+- (void)clearJobItems;
+- (void)addJobMenuItem:(MRTJobItem*)jobItem;
 
 @end

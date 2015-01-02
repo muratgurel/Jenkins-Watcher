@@ -15,7 +15,10 @@
 
 @property (strong, nonatomic) NSStatusItem *statusItem;
 @property (strong, nonatomic) NSMenu *menu;
+
 @property (nonatomic, weak) id<MRTStatusBarDelegate> delegate;
+
+@property (nonatomic, strong) NSMutableArray *jobItems;
 
 @end
 
@@ -27,6 +30,7 @@
     self = [super init];
     if (self) {
         _delegate = delegate;
+        _jobItems = [NSMutableArray array];
         
         _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
         _statusItem.title = @"";
@@ -36,14 +40,10 @@
         _menu = [[NSMenu alloc] init];
         [_menu setAutoenablesItems:NO];
         
-        [_menu addItem:[[MRTJobItem alloc] init]];
-        [_menu addItem:[[MRTJobItem alloc] init]];
-        
         [_menu addItem:[NSMenuItem separatorItem]];
         
         [_menu addItem:[self itemWithTitle:@"Settings" action:@selector(showSettings:)]];
         [_menu addItem:[self itemWithTitle:@"Quit" action:@selector(quit:)]];
-        
         
         _statusItem.menu = _menu;
     }
@@ -55,6 +55,21 @@
     [item setTarget:self];
     
     return item;
+}
+
+- (void)clearJobItems {
+    for (MRTJobItem *item in self.jobItems) {
+        [self.menu removeItem:item];
+    }
+    
+    [self.jobItems removeAllObjects];
+}
+
+- (void)addJobMenuItem:(MRTJobItem *)jobItem {
+    NSParameterAssert(jobItem);
+    
+    [self.menu insertItem:jobItem atIndex:0];
+    [self.jobItems addObject:jobItem];
 }
 
 #pragma MARK - Menu Callbacks

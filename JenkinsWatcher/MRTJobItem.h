@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MRTJob;
+
 @interface MRTJobItem : NSMenuItem
+
+- (id)initWithJob:(MRTJob*)job;
 
 @end

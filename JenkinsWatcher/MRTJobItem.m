@@ -7,13 +7,21 @@
 //
 
 #import "MRTJobItem.h"
+#import "MRTJob.h"
+
+@interface MRTJobItem ()
+
+@property (weak) IBOutlet NSTextField *titleLabel;
+
+@end
 
 @implementation MRTJobItem
 
-- (id)init {
+- (id)initWithJob:(MRTJob *)job {
     self = [super init];
     if (self) {
         [[NSBundle mainBundle] loadNibNamed:@"JobItemView" owner:self topLevelObjects:nil];
+        [self.titleLabel setStringValue:job.name];
     }
     return self;
 }
