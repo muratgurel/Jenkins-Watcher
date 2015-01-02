@@ -11,7 +11,7 @@
 #import "MRTAppStatusBar.h"
 #import <Bolts/Bolts.h>
 
-@interface AppDelegate () <MRTStatusBarDelegate>
+@interface AppDelegate () <MRTStatusBarDelegate, NSUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) MRTAppStatusBar *statusBar;
 @property (nonatomic, strong) MRTJenkins *jenkins;
@@ -23,6 +23,8 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    
     self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
     self.jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8080"]];
     [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
@@ -37,6 +39,13 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+#pragma mark - User Notification Delegate
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
+     shouldPresentNotification:(NSUserNotification *)notification {
+    return YES;
 }
 
 #pragma mark - Status Bar Delegate
