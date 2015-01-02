@@ -9,6 +9,8 @@
 #import "MRTAppStatusBar.h"
 #import <Cocoa/Cocoa.h>
 
+#import "MRTJobItem.h"
+
 @interface MRTAppStatusBar ()
 
 @property (strong, nonatomic) NSStatusItem *statusItem;
@@ -34,10 +36,14 @@
         _menu = [[NSMenu alloc] init];
         [_menu setAutoenablesItems:NO];
         
+        [_menu addItem:[[MRTJobItem alloc] init]];
+        [_menu addItem:[[MRTJobItem alloc] init]];
+        
         [_menu addItem:[NSMenuItem separatorItem]];
         
         [_menu addItem:[self itemWithTitle:@"Settings" action:@selector(showSettings:)]];
         [_menu addItem:[self itemWithTitle:@"Quit" action:@selector(quit:)]];
+        
         
         _statusItem.menu = _menu;
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MRTJobItem">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="Swq-5i-31Z"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GFH-8V-V6J">
+                    <rect key="frame" x="20" y="25" width="16" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="ujh-D7-b4s"/>
+                        <constraint firstAttribute="width" constant="16" id="vWR-wL-F24"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="red-circle" id="Dnt-WW-gKL"/>
+                </imageView>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aXZ-0U-jdk">
+                    <rect key="frame" x="52" y="15" width="210" height="40"/>
+                    <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" baseWritingDirection="leftToRight" title="Mobile - iOS - CanakOkeyPlus - Deploy to Test" id="kFG-Z8-7YO">
+                        <font key="font" size="13" name="HelveticaNeue-Bold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="GFH-8V-V6J" secondAttribute="centerY" id="3zp-3k-kmd"/>
+                <constraint firstItem="aXZ-0U-jdk" firstAttribute="leading" secondItem="GFH-8V-V6J" secondAttribute="trailing" constant="18" id="616-nI-Z01"/>
+                <constraint firstAttribute="centerY" secondItem="aXZ-0U-jdk" secondAttribute="centerY" id="Nhw-qR-f6e"/>
+                <constraint firstAttribute="trailing" secondItem="aXZ-0U-jdk" secondAttribute="trailing" constant="20" id="fds-IE-8bK"/>
+                <constraint firstItem="GFH-8V-V6J" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="xVU-J4-2vp"/>
+            </constraints>
+        </customView>
+    </objects>
+    <resources>
+        <image name="red-circle" width="128" height="128"/>
+    </resources>
+</document>

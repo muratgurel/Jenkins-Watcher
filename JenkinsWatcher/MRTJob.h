@@ -14,5 +14,6 @@
 @property (nonatomic, readonly, copy) NSURL *url;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
++ (NSRegularExpression*)titleStatusRegex;
 
 @end
