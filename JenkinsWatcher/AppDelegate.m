@@ -9,12 +9,14 @@
 #import "AppDelegate.h"
 #import "MRTJenkins.h"
 #import "MRTAppStatusBar.h"
+#import "MRTSettings.h"
 #import <Bolts/Bolts.h>
 
 @interface AppDelegate () <MRTStatusBarDelegate, NSUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) MRTAppStatusBar *statusBar;
 @property (nonatomic, strong) MRTJenkins *jenkins;
+@property (nonatomic, strong) MRTSettings *settings;
 
 - (IBAction)saveAction:(id)sender;
 
@@ -27,6 +29,8 @@
     
     self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
     self.jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8080"]];
+    self.settings = [[MRTSettings alloc] init];
+    
     [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
         [[self.jenkins fetchFailedJobs] continueWithBlock:^id(BFTask *task) {
             NSLog(@"%@", [self.jenkins failedJobs]);
