@@ -12,5 +12,6 @@
 
 @property (nonatomic) BOOL launchOnStartup;
 @property (nonatomic, strong) NSString *jenkinsPath;
+@property (nonatomic) NSUInteger fetchInterval;
 
 @end

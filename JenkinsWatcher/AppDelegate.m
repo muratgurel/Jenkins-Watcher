@@ -11,12 +11,17 @@
 #import "MRTAppStatusBar.h"
 #import "MRTSettings.h"
 #import <Bolts/Bolts.h>
+#import "MRTGeneralViewController.h"
 
 @interface AppDelegate () <MRTStatusBarDelegate, NSUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) MRTAppStatusBar *statusBar;
 @property (nonatomic, strong) MRTJenkins *jenkins;
 @property (nonatomic, strong) MRTSettings *settings;
+
+@property (nonatomic, strong) NSStoryboard *storyboard;
+
+@property (nonatomic, strong) NSWindowController *activeWindowController;
 
 - (IBAction)saveAction:(id)sender;
 
@@ -27,22 +32,30 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
     
+    self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    
     self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
     self.jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8080"]];
     self.settings = [[MRTSettings alloc] init];
     
-    [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-        [[self.jenkins fetchFailedJobs] continueWithBlock:^id(BFTask *task) {
-            NSLog(@"%@", [self.jenkins failedJobs]);
-            
-            return nil;
-        }];
-        return nil;
-    }];
+    if (![self.settings jenkinsPath]) {
+        [self presentSettingsWindow];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (void)presentSettingsWindow {
+    NSWindowController *settingsWC = [self.storyboard instantiateControllerWithIdentifier:@"Settings"];
+    MRTGeneralViewController *generalVC = (MRTGeneralViewController*)settingsWC.contentViewController;
+    [generalVC setSettings:self.settings];
+    [settingsWC showWindow:self];
+    [settingsWC.window setLevel:NSFloatingWindowLevel];
+    // TODO: Keyboard focus
+    
+    self.activeWindowController = settingsWC;
 }
 
 #pragma mark - User Notification Delegate
@@ -55,7 +68,7 @@
 #pragma mark - Status Bar Delegate
 
 - (void)showSettings {
-    
+    [self presentSettingsWindow];
 }
 
 - (void)quit {

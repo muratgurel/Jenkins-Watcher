@@ -10,7 +10,8 @@
 
 NSString* const kFirstLaunchKey = @"firstLaunchIndicator";
 NSString* const kLaunchOnStartupKey = @"launchOnStartup";
-NSString* const kJenkinsPathKey = @"launchOnStartup";
+NSString* const kJenkinsPathKey = @"jenkinsPathKey";
+NSString* const kFetchIntervalKey = @"fetchIntervalKey";
 
 @implementation MRTSettings
 
@@ -20,12 +21,17 @@ NSString* const kJenkinsPathKey = @"launchOnStartup";
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         if ([prefs objectForKey:kFirstLaunchKey] == nil) {
-            [prefs setObject:@(NO) forKey:kLaunchOnStartupKey];
-            [prefs setObject:@(YES) forKey:kFirstLaunchKey];
+            [prefs setBool:NO forKey:kLaunchOnStartupKey];
+            [prefs setBool:YES forKey:kFirstLaunchKey];
+            [prefs setInteger:60 forKey:kFetchIntervalKey];
         }
         
-        _launchOnStartup = (BOOL)[prefs objectForKey:kLaunchOnStartupKey];
-        _jenkinsPath = [prefs objectForKey:kJenkinsPathKey];
+        // User could have changed this setting from system prefs
+        _launchOnStartup = [self isAppInLoginItems];
+        [prefs setBool:_launchOnStartup forKey:kLaunchOnStartupKey];
+        
+        _jenkinsPath = [prefs stringForKey:kJenkinsPathKey];
+        _fetchInterval = [prefs integerForKey:kFetchIntervalKey];
     }
     return self;
 }
@@ -35,7 +41,7 @@ NSString* const kJenkinsPathKey = @"launchOnStartup";
 - (void)setLaunchOnStartup:(BOOL)launchOnStartup {
     if (_launchOnStartup != launchOnStartup) {
         _launchOnStartup = launchOnStartup;
-        [[NSUserDefaults standardUserDefaults] setObject:@(_launchOnStartup) forKey:kLaunchOnStartupKey];
+        [[NSUserDefaults standardUserDefaults] setBool:_launchOnStartup forKey:kLaunchOnStartupKey];
         
         [self toggleAppLoginItem:_launchOnStartup];
     }
@@ -45,6 +51,13 @@ NSString* const kJenkinsPathKey = @"launchOnStartup";
     if (_jenkinsPath != jenkinsPath) {
         _jenkinsPath = jenkinsPath;
         [[NSUserDefaults standardUserDefaults] setObject:_jenkinsPath forKey:kJenkinsPathKey];
+    }
+}
+
+- (void)setFetchInterval:(NSUInteger)fetchInterval {
+    if (_fetchInterval != fetchInterval) {
+        _fetchInterval = fetchInterval;
+        [[NSUserDefaults standardUserDefaults] setInteger:_fetchInterval forKey:kFetchIntervalKey];
     }
 }
 
