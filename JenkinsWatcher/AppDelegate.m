@@ -12,6 +12,7 @@
 #import "MRTSettings.h"
 #import <Bolts/Bolts.h>
 #import "MRTGeneralViewController.h"
+#import "NSUserNotification+JobAdditions.h"
 
 @interface AppDelegate () <MRTStatusBarDelegate, NSUserNotificationCenterDelegate>
 
@@ -31,7 +32,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:kSettingsDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jenkinsDidUpdateJobs:) name:kJenkinsDidUpdateFailedJobsNotification object:nil];
     
     self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
@@ -43,6 +46,12 @@
     }
     else {
         self.jenkins = [self newJenkins];
+        
+        [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
+            [self.jenkins fetchFailedJobs];
+            return nil;
+        }];
+
     }
 }
 
@@ -58,7 +67,7 @@
 }
 
 - (MRTJenkins*)newJenkins {
-    MRTJenkins *jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:[self.settings jenkinsPath]]];
+    MRTJenkins *jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:[self.settings jenkinsPath]] context:self.managedObjectContext];
     [jenkins setAutoRefresh:YES];
     [jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
     return jenkins;
@@ -81,6 +90,21 @@
     [[NSApplication sharedApplication] terminate:self];
 }
 
+#pragma mark - Jenkins Notification
+
+- (void)jenkinsDidUpdateJobs:(NSNotification*)notification {
+    NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
+    NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
+    
+    for (MRTJob *job in removedJobs) {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
+    }
+    
+    for (MRTJob *job in insertedJobs) {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
+    }
+}
+
 #pragma mark - Settings Notification
 
 - (void)settingsDidChange:(NSNotification*)notification {
@@ -100,12 +124,6 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-- (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.muratgurel.JenkinsWatcher" in the user's Application Support directory.
-    NSURL *appSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-    return [appSupportURL URLByAppendingPathComponent:@"com.muratgurel.JenkinsWatcher"];
-}
-
 - (NSManagedObjectModel *)managedObjectModel {
     // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
     if (_managedObjectModel) {
@@ -123,34 +141,16 @@
         return _persistentStoreCoordinator;
     }
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationDocumentsDirectory = [self applicationDocumentsDirectory];
-    BOOL shouldFail = NO;
     NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+    NSString *failureReason;
     
-    // Make sure the application files directory is there
-    NSDictionary *properties = [applicationDocumentsDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
-    if (properties) {
-        if (![properties[NSURLIsDirectoryKey] boolValue]) {
-            failureReason = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationDocumentsDirectory path]];
-            shouldFail = YES;
-        }
-    } else if ([error code] == NSFileReadNoSuchFileError) {
-        error = nil;
-        [fileManager createDirectoryAtPath:[applicationDocumentsDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![coordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
+        coordinator = nil;
     }
+    _persistentStoreCoordinator = coordinator;
     
-    if (!shouldFail && !error) {
-        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-        NSURL *url = [applicationDocumentsDirectory URLByAppendingPathComponent:@"OSXCoreDataObjC.storedata"];
-        if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
-            coordinator = nil;
-        }
-        _persistentStoreCoordinator = coordinator;
-    }
-    
-    if (shouldFail || error) {
+    if (error) {
         // Report any error we got.
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";

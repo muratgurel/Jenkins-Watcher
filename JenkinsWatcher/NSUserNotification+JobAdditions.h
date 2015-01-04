@@ -12,6 +12,7 @@
 
 @interface NSUserNotification (JobAdditions)
 
-+ (NSUserNotification*)notificationWithJob:(MRTJob*)job;
++ (NSUserNotification*)failedNotificationWithJob:(MRTJob*)job;
++ (NSUserNotification*)normalNotificationWithJob:(MRTJob*)job;
 
 @end

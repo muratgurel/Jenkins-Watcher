@@ -8,58 +8,39 @@
 
 #import "MRTJob.h"
 
-@interface MRTJob ()
-
-@property (nonatomic, strong) NSString *jobID;
-
-@end
-
 @implementation MRTJob
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
-    NSParameterAssert(dictionary);
-    self = [super init];
-    if (self) {
-        _jobID = [dictionary objectForKey:@"id"];
-        _url = [NSURL URLWithString:[dictionary valueForKeyPath:@"link._href"]];
-        
-        NSString *title = [dictionary objectForKey:@"title"];
-        _name = [[[self class] titleStatusRegex] stringByReplacingMatchesInString:title
-                                                                          options:kNilOptions
-                                                                            range:NSMakeRange(0, [title length])
-                                                                     withTemplate:@""];
-    }
-    return self;
+@dynamic jobID;
+@dynamic name;
+@dynamic url;
+
++ (MRTJob*)jobWithDictionary:(NSDictionary *)dictionary
+                   inContext:(NSManagedObjectContext *)context {
+    MRTJob *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job"
+                                                   inManagedObjectContext:context];
+    newJob.jobID = [dictionary objectForKey:@"id"];
+    newJob.url = [NSURL URLWithString:[dictionary valueForKeyPath:@"link._href"]];
+    
+    NSString *title = [dictionary objectForKey:@"title"];
+    newJob.name = [[[self class] titleStatusRegex] stringByReplacingMatchesInString:title
+                                                                            options:kNilOptions
+                                                                              range:NSMakeRange(0, [title length])
+                                                                       withTemplate:@""];
+    return newJob;
 }
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"Job(%@)", self.name];
 }
 
++ (NSString*)jobIDFromDictionary:(NSDictionary *)dictionary {
+    return [dictionary objectForKey:@"id"];
+}
+
 + (NSRegularExpression*)titleStatusRegex {
     return [NSRegularExpression regularExpressionWithPattern:@"\\s[(]broken since[\\s\\w#]+[)]$"
                                                      options:kNilOptions
                                                        error:nil];
-}
-
-#pragma MARK - Equality
-
-- (BOOL)isEqual:(id)object {
-    if ([object isKindOfClass:[MRTJob class]]) {
-        MRTJob *job = (MRTJob*)object;
-        return [job.jobID isEqualToString:self.jobID];
-    }
-    
-    return NO;
-}
-
-- (BOOL)isEqualTo:(id)object {
-    if ([object isKindOfClass:[MRTJob class]]) {
-        MRTJob *job = (MRTJob*)object;
-        return [job.jobID isEqualToString:self.jobID];
-    }
-    
-    return NO;
 }
 
 @end
