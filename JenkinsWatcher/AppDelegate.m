@@ -31,20 +31,19 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:kSettingsDidChangeNotification object:nil];
     
     self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
-    self.jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8080"]];
     self.settings = [[MRTSettings alloc] init];
+    self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
     
     if (![self.settings jenkinsPath]) {
         [self presentSettingsWindow];
     }
-}
-
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    else {
+        self.jenkins = [self newJenkins];
+    }
 }
 
 - (void)presentSettingsWindow {
@@ -56,6 +55,13 @@
     // TODO: Keyboard focus
     
     self.activeWindowController = settingsWC;
+}
+
+- (MRTJenkins*)newJenkins {
+    MRTJenkins *jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:[self.settings jenkinsPath]]];
+    [jenkins setAutoRefresh:YES];
+    [jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
+    return jenkins;
 }
 
 #pragma mark - User Notification Delegate
@@ -73,6 +79,18 @@
 
 - (void)quit {
     [[NSApplication sharedApplication] terminate:self];
+}
+
+#pragma mark - Settings Notification
+
+- (void)settingsDidChange:(NSNotification*)notification {
+    NSString *propertyName = [notification.userInfo objectForKey:kSettingsChangedPropertyKey];
+    if ([propertyName isEqualToString:NSStringFromSelector(@selector(jenkinsPath))]) {
+        self.jenkins = [self newJenkins];
+    }
+    else if ([propertyName isEqualToString:NSStringFromSelector(@selector(fetchInterval))]) {
+        [self.jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
+    }
 }
 
 #pragma mark - Core Data stack

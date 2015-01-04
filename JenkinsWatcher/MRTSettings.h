@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* const kSettingsDidChangeNotification;
+extern NSString* const kSettingsChangedPropertyKey;
+
 @interface MRTSettings : NSObject
 
 @property (nonatomic) BOOL launchOnStartup;

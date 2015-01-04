@@ -8,6 +8,9 @@
 
 #import "MRTSettings.h"
 
+NSString* const kSettingsDidChangeNotification = @"com.muratgurel.notification.settingsDidChange";
+NSString* const kSettingsChangedPropertyKey = @"changedSettingsProperty";
+
 NSString* const kFirstLaunchKey = @"firstLaunchIndicator";
 NSString* const kLaunchOnStartupKey = @"launchOnStartup";
 NSString* const kJenkinsPathKey = @"jenkinsPathKey";
@@ -36,6 +39,15 @@ NSString* const kFetchIntervalKey = @"fetchIntervalKey";
     return self;
 }
 
+- (void)dispatchNotificationForPropertyWithName:(NSString*)propName {
+    NSParameterAssert(propName);
+    
+    NSDictionary *userInfo = @{ kSettingsChangedPropertyKey : propName };
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSettingsDidChangeNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+}
+
 #pragma mark - Setters
 
 - (void)setLaunchOnStartup:(BOOL)launchOnStartup {
@@ -44,6 +56,7 @@ NSString* const kFetchIntervalKey = @"fetchIntervalKey";
         [[NSUserDefaults standardUserDefaults] setBool:_launchOnStartup forKey:kLaunchOnStartupKey];
         
         [self toggleAppLoginItem:_launchOnStartup];
+        [self dispatchNotificationForPropertyWithName:NSStringFromSelector(@selector(launchOnStartup))];
     }
 }
 
@@ -51,6 +64,7 @@ NSString* const kFetchIntervalKey = @"fetchIntervalKey";
     if (_jenkinsPath != jenkinsPath) {
         _jenkinsPath = jenkinsPath;
         [[NSUserDefaults standardUserDefaults] setObject:_jenkinsPath forKey:kJenkinsPathKey];
+        [self dispatchNotificationForPropertyWithName:NSStringFromSelector(@selector(jenkinsPath))];
     }
 }
 
@@ -58,6 +72,7 @@ NSString* const kFetchIntervalKey = @"fetchIntervalKey";
     if (_fetchInterval != fetchInterval) {
         _fetchInterval = fetchInterval;
         [[NSUserDefaults standardUserDefaults] setInteger:_fetchInterval forKey:kFetchIntervalKey];
+        [self dispatchNotificationForPropertyWithName:NSStringFromSelector(@selector(fetchInterval))];
     }
 }
 
