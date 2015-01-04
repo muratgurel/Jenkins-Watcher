@@ -649,7 +649,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="Settings" id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="Settings" id="B8D-0N-5wS" customClass="MRTSettingsWindowController" sceneMemberID="viewController">
                     <window key="window" title="General" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -670,6 +670,7 @@
                         </toolbar>
                     </window>
                     <connections>
+                        <outlet property="toolbar" destination="6KU-5k-gwF" id="zKI-L4-ubp"/>
                         <segue destination="bVl-Rx-rLV" kind="relationship" relationship="window.shadowedContentViewController" id="L6j-02-7CR"/>
                     </connections>
                 </windowController>
