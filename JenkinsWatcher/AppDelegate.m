@@ -86,6 +86,7 @@
 - (void)settingsDidChange:(NSNotification*)notification {
     NSString *propertyName = [notification.userInfo objectForKey:kSettingsChangedPropertyKey];
     if ([propertyName isEqualToString:NSStringFromSelector(@selector(jenkinsPath))]) {
+        [self.jenkins setAutoRefresh:NO]; // Removes timer FIXME: Fix retain problem
         self.jenkins = [self newJenkins];
     }
     else if ([propertyName isEqualToString:NSStringFromSelector(@selector(fetchInterval))]) {
