@@ -100,12 +100,6 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-- (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.muratgurel.JenkinsWatcher" in the user's Application Support directory.
-    NSURL *appSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-    return [appSupportURL URLByAppendingPathComponent:@"com.muratgurel.JenkinsWatcher"];
-}
-
 - (NSManagedObjectModel *)managedObjectModel {
     // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
     if (_managedObjectModel) {
@@ -123,34 +117,16 @@
         return _persistentStoreCoordinator;
     }
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationDocumentsDirectory = [self applicationDocumentsDirectory];
-    BOOL shouldFail = NO;
     NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+    NSString *failureReason;
     
-    // Make sure the application files directory is there
-    NSDictionary *properties = [applicationDocumentsDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
-    if (properties) {
-        if (![properties[NSURLIsDirectoryKey] boolValue]) {
-            failureReason = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationDocumentsDirectory path]];
-            shouldFail = YES;
-        }
-    } else if ([error code] == NSFileReadNoSuchFileError) {
-        error = nil;
-        [fileManager createDirectoryAtPath:[applicationDocumentsDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![coordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
+        coordinator = nil;
     }
+    _persistentStoreCoordinator = coordinator;
     
-    if (!shouldFail && !error) {
-        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-        NSURL *url = [applicationDocumentsDirectory URLByAppendingPathComponent:@"OSXCoreDataObjC.storedata"];
-        if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
-            coordinator = nil;
-        }
-        _persistentStoreCoordinator = coordinator;
-    }
-    
-    if (shouldFail || error) {
+    if (error) {
         // Report any error we got.
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
