@@ -18,6 +18,8 @@
 		1F695AFD1A55A8710078CA90 /* MRTJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695AFC1A55A8710078CA90 /* MRTJob.m */; };
 		1F695B001A55BA9C0078CA90 /* JobItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F695AFF1A55BA9C0078CA90 /* JobItemView.xib */; };
 		1F695B031A55C2510078CA90 /* MRTJobItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F695B021A55C2510078CA90 /* MRTJobItem.m */; };
+		1F6F36551A5814B0003D652F /* MRTGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F36541A5814B0003D652F /* MRTGeneralViewController.m */; };
+		1F6F365D1A599E98003D652F /* MRTSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F365C1A599E98003D652F /* MRTSettingsWindowController.m */; };
 		1F93A0621A56CB6A006C125E /* NSUserNotification+JobAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93A0611A56CB6A006C125E /* NSUserNotification+JobAdditions.m */; };
 		1F93A0661A56D001006C125E /* MRTSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93A0651A56D001006C125E /* MRTSettings.m */; };
 		1FC61E0CE5C41EC9E5173326 /* libPods-JenkinsWatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */; };
@@ -55,6 +57,10 @@
 		1F695AFF1A55BA9C0078CA90 /* JobItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JobItemView.xib; sourceTree = "<group>"; };
 		1F695B011A55C2510078CA90 /* MRTJobItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTJobItem.h; sourceTree = "<group>"; };
 		1F695B021A55C2510078CA90 /* MRTJobItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTJobItem.m; sourceTree = "<group>"; };
+		1F6F36531A5814B0003D652F /* MRTGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTGeneralViewController.h; sourceTree = "<group>"; };
+		1F6F36541A5814B0003D652F /* MRTGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTGeneralViewController.m; sourceTree = "<group>"; };
+		1F6F365B1A599E98003D652F /* MRTSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTSettingsWindowController.h; sourceTree = "<group>"; };
+		1F6F365C1A599E98003D652F /* MRTSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTSettingsWindowController.m; sourceTree = "<group>"; };
 		1F93A0601A56CB6A006C125E /* NSUserNotification+JobAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserNotification+JobAdditions.h"; sourceTree = "<group>"; };
 		1F93A0611A56CB6A006C125E /* NSUserNotification+JobAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserNotification+JobAdditions.m"; sourceTree = "<group>"; };
 		1F93A0641A56D001006C125E /* MRTSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTSettings.h; sourceTree = "<group>"; };
@@ -200,6 +206,10 @@
 			children = (
 				1F93A0641A56D001006C125E /* MRTSettings.h */,
 				1F93A0651A56D001006C125E /* MRTSettings.m */,
+				1F6F36531A5814B0003D652F /* MRTGeneralViewController.h */,
+				1F6F36541A5814B0003D652F /* MRTGeneralViewController.m */,
+				1F6F365B1A599E98003D652F /* MRTSettingsWindowController.h */,
+				1F6F365C1A599E98003D652F /* MRTSettingsWindowController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -351,6 +361,8 @@
 				1F695AD21A5576D00078CA90 /* main.m in Sources */,
 				1F93A0661A56D001006C125E /* MRTSettings.m in Sources */,
 				1F695AF51A5578270078CA90 /* MRTAppStatusBar.m in Sources */,
+				1F6F36551A5814B0003D652F /* MRTGeneralViewController.m in Sources */,
+				1F6F365D1A599E98003D652F /* MRTSettingsWindowController.m in Sources */,
 				1F93A0621A56CB6A006C125E /* NSUserNotification+JobAdditions.m in Sources */,
 				1F695B031A55C2510078CA90 /* MRTJobItem.m in Sources */,
 				1F695AD01A5576D00078CA90 /* AppDelegate.m in Sources */,
