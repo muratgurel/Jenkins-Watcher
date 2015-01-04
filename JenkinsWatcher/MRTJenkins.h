@@ -13,6 +13,7 @@ extern NSString* const kJenkinsDidBecomeUnavailableNotification;
 extern NSString* const kJenkinsDidUpdateFailedJobsNotification;
 
 @class BFTask;
+@class NSManagedObjectContext;
 
 @interface MRTJenkins : NSObject
 
@@ -25,7 +26,7 @@ extern NSString* const kJenkinsDidUpdateFailedJobsNotification;
 @property (nonatomic) BOOL autoRefresh;
 @property (nonatomic) NSUInteger autoRefreshInterval;
 
-- (id)initWithURL:(NSURL*)url;
+- (id)initWithURL:(NSURL*)url context:(NSManagedObjectContext*)context;
 
 - (BFTask*)connect; // TODO: BFTask
 - (BFTask*)fetchFailedJobs; // TODO: BFTask

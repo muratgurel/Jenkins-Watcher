@@ -30,15 +30,20 @@ NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notif
 
 @property (nonatomic, strong) NSTimer *refreshTimer;
 
+@property (nonatomic, strong) NSManagedObjectContext *context;
+
 @end
 
 @implementation MRTJenkins
 
-- (id)initWithURL:(NSURL *)url {
+- (id)initWithURL:(NSURL *)url context:(NSManagedObjectContext *)context {
     NSParameterAssert(url);
+    NSParameterAssert(context);
+    
     self = [super init];
     if (self) {
         _url = url;
+        _context = context;
         
         _isAvailable = NO;
         
