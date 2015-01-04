@@ -15,6 +15,9 @@ NSString* const kJenkinsDidBecomeAvailableNotification = @"com.muratgurel.notifi
 NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.notification.jenkinsUnavailable";;
 NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notification.jenkinsFailedJobUpdate";
 
+NSString* const kInsertedJobsKey = @"insertedJobs";
+NSString* const kRemovedJobsKey = @"removedJobs";
+
 @interface MRTJenkins ()
 
 @property (nonatomic, readwrite, copy) NSURL *url;
@@ -111,10 +114,7 @@ NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notif
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
                         if (urlResponse.statusCode == 200) {
-                            self.failedJobs = [self parseResponseXML:data];
-                            [task setResult:self.failedJobs];
-                            
-                            [[NSNotificationCenter defaultCenter] postNotificationName:kJenkinsDidUpdateFailedJobsNotification object:self];
+                            [self setChangesAndNotifyWithResponseXML:data];
                         }
                         else {
                             self.failedJobs = [NSArray array];
@@ -136,32 +136,59 @@ NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notif
     }
 }
 
-- (NSArray*)parseResponseXML:(NSData*)xmlData {
+- (void)setChangesAndNotifyWithResponseXML:(NSData*)xmlData {
     NSParameterAssert(xmlData);
     
     XMLDictionaryParser *parser = [[XMLDictionaryParser alloc] init];
     NSDictionary *xmlDictionary = [parser dictionaryWithData:xmlData];
     
-    NSMutableArray *array = [NSMutableArray array];
     NSRegularExpression *regex = [MRTJob titleStatusRegex];
+    NSArray *currentJobs = self.failedJobs;
     
-    id entries = [xmlDictionary objectForKey:@"entry"];
-    if ([entries isKindOfClass:[NSArray class]]) {
-        for (NSDictionary *entryDictionary in (NSArray*)entries) {
-            NSString *title = [entryDictionary objectForKey:@"title"];
-            if ([regex numberOfMatchesInString:title options:kNilOptions range:NSMakeRange(0, [title length])] > 0) {
-                [array addObject:[[MRTJob alloc] initWithDictionary:entryDictionary]];
+    NSMutableSet *insertedJobs = [NSMutableSet set];
+    NSMutableSet *unchangedJobs = [NSMutableSet set];
+    
+    NSArray *entries;
+    if ([[xmlDictionary objectForKey:@"entry"] isKindOfClass:[NSArray class]]) {
+        entries = [xmlDictionary objectForKey:@"entry"];
+    }
+    else if ([[xmlDictionary objectForKey:@"entry"] isKindOfClass:[NSDictionary class]]) {
+        entries = [NSArray arrayWithObject:[xmlDictionary objectForKey:@"entry"]];
+    }
+    else {
+        entries = [NSArray array];
+    }
+    
+    for (NSDictionary *entryDictionary in (NSArray*)entries) {
+        NSString *title = [entryDictionary objectForKey:@"title"];
+        if ([regex numberOfMatchesInString:title options:kNilOptions range:NSMakeRange(0, [title length])] > 0) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"jobID == %@", [MRTJob jobIDFromDictionary:entryDictionary]];
+            NSArray *filteredArray = [currentJobs filteredArrayUsingPredicate:predicate];
+            
+            if ([filteredArray count] > 0) {
+                [unchangedJobs addObject:[filteredArray objectAtIndex:0]];
+            }
+            else {
+                [insertedJobs addObject:[MRTJob jobWithDictionary:entryDictionary inContext:self.context]];
             }
         }
     }
-    else if ([entries isKindOfClass:[NSDictionary class]]) {
-        NSString *title = [entries objectForKey:@"title"];
-        if ([regex numberOfMatchesInString:title options:kNilOptions range:NSMakeRange(0, [title length])] > 0) {
-            [array addObject:[[MRTJob alloc] initWithDictionary:(NSDictionary*)entries]];
-        }
-    }
     
-    return [array copy];
+    NSMutableSet *removedJobs = [NSMutableSet setWithArray:self.failedJobs];
+    [removedJobs minusSet:unchangedJobs];
+    
+    NSSet *failedJobsSet = [unchangedJobs setByAddingObjectsFromSet:insertedJobs];
+    
+    self.failedJobs = [failedJobsSet allObjects];
+    
+    NSDictionary *dictionary = @{ kInsertedJobsKey : [insertedJobs allObjects],
+                                  kRemovedJobsKey : [removedJobs allObjects] };
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kJenkinsDidUpdateFailedJobsNotification object:self userInfo:dictionary];
+    
+    for (MRTJob *job in removedJobs) {
+        [self.context deleteObject:job];
+    }
 }
 
 - (void)startRefreshTimer {

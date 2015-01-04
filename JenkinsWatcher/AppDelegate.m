@@ -12,6 +12,7 @@
 #import "MRTSettings.h"
 #import <Bolts/Bolts.h>
 #import "MRTGeneralViewController.h"
+#import "NSUserNotification+JobAdditions.h"
 
 @interface AppDelegate () <MRTStatusBarDelegate, NSUserNotificationCenterDelegate>
 
@@ -31,7 +32,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:kSettingsDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jenkinsDidUpdateJobs:) name:kJenkinsDidUpdateFailedJobsNotification object:nil];
     
     self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
@@ -43,6 +46,12 @@
     }
     else {
         self.jenkins = [self newJenkins];
+        
+        [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
+            [self.jenkins fetchFailedJobs];
+            return nil;
+        }];
+
     }
 }
 
@@ -58,7 +67,7 @@
 }
 
 - (MRTJenkins*)newJenkins {
-    MRTJenkins *jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:[self.settings jenkinsPath]]];
+    MRTJenkins *jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:[self.settings jenkinsPath]] context:self.managedObjectContext];
     [jenkins setAutoRefresh:YES];
     [jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
     return jenkins;
@@ -79,6 +88,21 @@
 
 - (void)quit {
     [[NSApplication sharedApplication] terminate:self];
+}
+
+#pragma mark - Jenkins Notification
+
+- (void)jenkinsDidUpdateJobs:(NSNotification*)notification {
+    NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
+    NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
+    
+    for (MRTJob *job in removedJobs) {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
+    }
+    
+    for (MRTJob *job in insertedJobs) {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
+    }
 }
 
 #pragma mark - Settings Notification

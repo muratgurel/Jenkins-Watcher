@@ -12,9 +12,19 @@
 @implementation NSUserNotification (JobAdditions)
 
 // TODO: Can you not create a subclass of NSUserNotification? It failed before.
-+ (NSUserNotification*)notificationWithJob:(MRTJob *)job {
++ (NSUserNotification*)failedNotificationWithJob:(MRTJob *)job {
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"Jenkins Job Failed";
+    notification.title = @"Job Failed";
+    notification.informativeText = job.name;
+    // TODO: Set image & sound
+    //        notification.soundName = NSUserNotificationDefaultSoundName;
+    //        [notification setContentImage:]
+    return notification;
+}
+
++ (NSUserNotification*)normalNotificationWithJob:(MRTJob *)job {
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"Job Back to Normal";
     notification.informativeText = job.name;
     // TODO: Set image & sound
     //        notification.soundName = NSUserNotificationDefaultSoundName;

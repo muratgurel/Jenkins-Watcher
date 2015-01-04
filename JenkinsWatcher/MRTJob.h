@@ -6,14 +6,16 @@
 //  Copyright (c) 2015 Murat Gurel. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface MRTJob : NSObject
+@interface MRTJob : NSManagedObject
 
-@property (nonatomic, readonly, copy) NSString *name;
-@property (nonatomic, readonly, copy) NSURL *url;
+@property (nonatomic, strong) NSString *jobID;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSURL *url;
 
-- (id)initWithDictionary:(NSDictionary*)dictionary;
++ (MRTJob*)jobWithDictionary:(NSDictionary*)dictionary inContext:(NSManagedObjectContext*)context;
++ (NSString*)jobIDFromDictionary:(NSDictionary*)dictionary;
 + (NSRegularExpression*)titleStatusRegex;
 
 @end

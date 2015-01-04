@@ -12,6 +12,9 @@ extern NSString* const kJenkinsDidBecomeAvailableNotification;
 extern NSString* const kJenkinsDidBecomeUnavailableNotification;
 extern NSString* const kJenkinsDidUpdateFailedJobsNotification;
 
+extern NSString* const kInsertedJobsKey;
+extern NSString* const kRemovedJobsKey;
+
 @class BFTask;
 @class NSManagedObjectContext;
 
