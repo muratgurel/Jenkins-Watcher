@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* const kJobObjectURIKey;
+
 @class MRTJob;
 
 @interface NSUserNotification (JobAdditions)

@@ -91,6 +91,17 @@
     return YES;
 }
 
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center
+       didActivateNotification:(NSUserNotification *)notification
+{
+    NSURL *objectURI = [NSURL URLWithString:[notification.userInfo objectForKey:kJobObjectURIKey]];
+    NSManagedObjectID *objectID = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURI];
+    if (objectID) {
+        MRTJob *job = (MRTJob*)[self.managedObjectContext objectWithID:objectID];
+        [[NSWorkspace sharedWorkspace] openURL:job.url];
+    }
+}
+
 #pragma mark - Status Bar Delegate
 
 - (void)showSettings {

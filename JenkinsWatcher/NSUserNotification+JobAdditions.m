@@ -9,6 +9,8 @@
 #import "NSUserNotification+JobAdditions.h"
 #import "MRTJob.h"
 
+NSString* const kJobObjectURIKey = @"jobObjectURIKey";
+
 @implementation NSUserNotification (JobAdditions)
 
 // TODO: Can you not create a subclass of NSUserNotification? It failed before.
@@ -16,6 +18,7 @@
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = @"Job Failed";
     notification.informativeText = job.name;
+    notification.userInfo = @{ kJobObjectURIKey : [[job.objectID URIRepresentation] absoluteString] };
     // TODO: Set image & sound
     //        notification.soundName = NSUserNotificationDefaultSoundName;
     //        [notification setContentImage:]
@@ -26,6 +29,7 @@
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = @"Job Back to Normal";
     notification.informativeText = job.name;
+    notification.userInfo = @{ kJobObjectURIKey : [[job.objectID URIRepresentation] absoluteString] };
     // TODO: Set image & sound
     //        notification.soundName = NSUserNotificationDefaultSoundName;
     //        [notification setContentImage:]
