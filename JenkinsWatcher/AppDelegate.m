@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MRTJenkins.h"
 #import "MRTAppStatusBar.h"
+#import "MRTJobItem.h"
 #import "MRTSettings.h"
 #import <Bolts/Bolts.h>
 #import "MRTGeneralViewController.h"
@@ -103,6 +104,13 @@
     for (MRTJob *job in insertedJobs) {
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
     }
+    
+    [self.statusBar clearJobItems];
+    
+    // TODO: Sort jobs so they appear the same always
+    for (MRTJob *job in [self.jenkins failedJobs]) {
+        [self.statusBar addJobMenuItem:[[MRTJobItem alloc] initWithJob:job]];
+    }
 }
 
 #pragma mark - Settings Notification
@@ -112,6 +120,11 @@
     if ([propertyName isEqualToString:NSStringFromSelector(@selector(jenkinsPath))]) {
         [self.jenkins setAutoRefresh:NO]; // Removes timer FIXME: Fix retain problem
         self.jenkins = [self newJenkins];
+        
+        [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
+            [self.jenkins fetchFailedJobs];
+            return nil;
+        }];
     }
     else if ([propertyName isEqualToString:NSStringFromSelector(@selector(fetchInterval))]) {
         [self.jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
