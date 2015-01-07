@@ -115,7 +115,8 @@
         for (MRTJob *job in insertedJobs) {
             [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
         }
-        
+    }
+    else {
         self.didFetchJobsFirstTime = YES;
     }
     
