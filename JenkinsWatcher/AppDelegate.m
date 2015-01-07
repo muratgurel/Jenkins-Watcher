@@ -52,7 +52,6 @@
             [self.jenkins fetchFailedJobs];
             return nil;
         }];
-
     }
 }
 
