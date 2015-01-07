@@ -12,6 +12,8 @@
 
 @interface MRTJobItem : NSMenuItem
 
+@property (nonatomic, readonly) MRTJob *job;
+
 - (id)initWithJob:(MRTJob*)job;
 
 @end

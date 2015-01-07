@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MRTJob.h"
 #import "MRTJenkins.h"
 #import "MRTAppStatusBar.h"
 #import "MRTJobItem.h"
@@ -25,6 +26,8 @@
 
 @property (nonatomic, strong) NSWindowController *activeWindowController;
 
+@property (nonatomic) BOOL didFetchJobsFirstTime;
+
 - (IBAction)saveAction:(id)sender;
 
 @end
@@ -41,6 +44,8 @@
     
     self.settings = [[MRTSettings alloc] init];
     self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
+    
+    self.didFetchJobsFirstTime = NO;
     
     if (![self.settings jenkinsPath]) {
         [self presentSettingsWindow];
@@ -73,6 +78,12 @@
     return jenkins;
 }
 
+#pragma mark - Menu Item Action
+
+- (void)handleJobItemClick:(MRTJobItem*)item {
+    [[NSWorkspace sharedWorkspace] openURL:[item.job url]];
+}
+
 #pragma mark - User Notification Delegate
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
@@ -93,22 +104,30 @@
 #pragma mark - Jenkins Notification
 
 - (void)jenkinsDidUpdateJobs:(NSNotification*)notification {
-    NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
-    NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
-    
-    for (MRTJob *job in removedJobs) {
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
-    }
-    
-    for (MRTJob *job in insertedJobs) {
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
+    if (self.didFetchJobsFirstTime) {
+        NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
+        NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
+        
+        for (MRTJob *job in removedJobs) {
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
+        }
+        
+        for (MRTJob *job in insertedJobs) {
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
+        }
+        
+        self.didFetchJobsFirstTime = YES;
     }
     
     [self.statusBar clearJobItems];
     
     // TODO: Sort jobs so they appear the same always
     for (MRTJob *job in [self.jenkins failedJobs]) {
-        [self.statusBar addJobMenuItem:[[MRTJobItem alloc] initWithJob:job]];
+        MRTJobItem *item = [[MRTJobItem alloc] initWithJob:job];
+        [item setTarget:self];
+        [item setAction:@selector(handleJobItemClick:)];
+        
+        [self.statusBar addJobMenuItem:item];
     }
 }
 

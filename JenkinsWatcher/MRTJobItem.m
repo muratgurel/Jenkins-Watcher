@@ -18,12 +18,20 @@
 @implementation MRTJobItem
 
 - (id)initWithJob:(MRTJob *)job {
+    NSParameterAssert(job);
+    
     self = [super init];
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:@"JobItemView" owner:self topLevelObjects:nil];
+        self.representedObject = job;
+        
+        [[NSBundle mainBundle] loadNibNamed:@"MRTJobItemView" owner:self topLevelObjects:nil];
         [self.titleLabel setStringValue:job.name];
     }
     return self;
+}
+
+- (MRTJob*)job {
+    return self.representedObject;
 }
 
 @end
