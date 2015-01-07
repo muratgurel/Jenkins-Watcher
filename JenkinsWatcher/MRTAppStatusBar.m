@@ -31,10 +31,12 @@
     if (self) {
         _delegate = delegate;
         _jobItems = [NSMutableArray array];
+        _iconColor = StatusIconColorBlack;
         
         _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
         _statusItem.title = @"";
-        _statusItem.image = [NSImage imageNamed:@"status-icon"];
+        _statusItem.image = [NSImage imageNamed:@"status-icon-black"];
+        _statusItem.alternateImage = [NSImage imageNamed:@"status-icon-white"];
         _statusItem.highlightMode = YES;
         
         _menu = [[NSMenu alloc] init];
@@ -70,6 +72,23 @@
     
     [self.menu insertItem:jobItem atIndex:0];
     [self.jobItems addObject:jobItem];
+}
+
+- (void)setIconColor:(StatusIconColor)iconColor {
+    if (_iconColor != iconColor) {
+        _iconColor = iconColor;
+        
+        switch (_iconColor) {
+            case StatusIconColorBlack:
+                self.statusItem.image = [NSImage imageNamed:@"status-icon-black"];
+                break;
+            case StatusIconColorRed:
+                self.statusItem.image = [NSImage imageNamed:@"status-icon-red"];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 #pragma MARK - Menu Callbacks

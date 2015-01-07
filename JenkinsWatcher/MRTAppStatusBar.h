@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "MRTStatusBarDelegate.h"
 
+typedef NS_ENUM(NSUInteger, StatusIconColor) {
+    StatusIconColorBlack,
+    StatusIconColorRed
+};
+
 @class MRTJobItem;
 
 @interface MRTAppStatusBar : NSObject
+
+@property (nonatomic) StatusIconColor iconColor;
 
 - (id)initWithDelegate:(id<MRTStatusBarDelegate>)delegate;
 

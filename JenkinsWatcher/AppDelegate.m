@@ -129,6 +129,13 @@
         
         [self.statusBar addJobMenuItem:item];
     }
+    
+    if ([[self.jenkins failedJobs] count] > 0) {
+        [self.statusBar setIconColor:StatusIconColorRed];
+    }
+    else {
+        [self.statusBar setIconColor:StatusIconColorBlack];
+    }
 }
 
 #pragma mark - Settings Notification
