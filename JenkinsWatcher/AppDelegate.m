@@ -38,7 +38,6 @@
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:kSettingsDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jenkinsDidUpdateJobs:) name:kJenkinsDidUpdateFailedJobsNotification object:nil];
     
     self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
@@ -54,7 +53,7 @@
         self.jenkins = [self newJenkins];
         
         [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-            [self.jenkins fetchFailedJobs];
+            [self.jenkins fetchJobs];
             return nil;
         }];
     }
@@ -115,41 +114,43 @@
 
 #pragma mark - Jenkins Notification
 
-- (void)jenkinsDidUpdateJobs:(NSNotification*)notification {
-    if (self.didFetchJobsFirstTime) {
-        NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
-        NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
-        
-        for (MRTJob *job in removedJobs) {
-            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
-        }
-        
-        for (MRTJob *job in insertedJobs) {
-            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
-        }
-    }
-    else {
-        self.didFetchJobsFirstTime = YES;
-    }
-    
-    [self.statusBar clearJobItems];
-    
-    // TODO: Sort jobs so they appear the same always
-    for (MRTJob *job in [self.jenkins failedJobs]) {
-        MRTJobItem *item = [[MRTJobItem alloc] initWithJob:job];
-        [item setTarget:self];
-        [item setAction:@selector(handleJobItemClick:)];
-        
-        [self.statusBar addJobMenuItem:item];
-    }
-    
-    if ([[self.jenkins failedJobs] count] > 0) {
-        [self.statusBar setIconColor:StatusIconColorRed];
-    }
-    else {
-        [self.statusBar setIconColor:StatusIconColorBlack];
-    }
-}
+// TODO: Create jobs manager & use nsfetchedresultscontroller
+
+//- (void)jenkinsDidUpdateJobs:(NSNotification*)notification {
+//    if (self.didFetchJobsFirstTime) {
+//        NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
+//        NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
+//        
+//        for (MRTJob *job in removedJobs) {
+//            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
+//        }
+//        
+//        for (MRTJob *job in insertedJobs) {
+//            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
+//        }
+//    }
+//    else {
+//        self.didFetchJobsFirstTime = YES;
+//    }
+//    
+//    [self.statusBar clearJobItems];
+//    
+//    // TODO: Sort jobs so they appear the same always
+//    for (MRTJob *job in [self.jenkins failedJobs]) {
+//        MRTJobItem *item = [[MRTJobItem alloc] initWithJob:job];
+//        [item setTarget:self];
+//        [item setAction:@selector(handleJobItemClick:)];
+//        
+//        [self.statusBar addJobMenuItem:item];
+//    }
+//    
+//    if ([[self.jenkins failedJobs] count] > 0) {
+//        [self.statusBar setIconColor:StatusIconColorRed];
+//    }
+//    else {
+//        [self.statusBar setIconColor:StatusIconColorBlack];
+//    }
+//}
 
 #pragma mark - Settings Notification
 
@@ -160,7 +161,7 @@
         self.jenkins = [self newJenkins];
         
         [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-            [self.jenkins fetchFailedJobs];
+            [self.jenkins fetchJobs];
             return nil;
         }];
     }
@@ -174,7 +175,7 @@
             self.jenkins = [self newJenkins];
             
             [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-                [self.jenkins fetchFailedJobs];
+                [self.jenkins fetchJobs];
                 return nil;
             }];
         }

@@ -14,8 +14,9 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSURL *url;
 
+- (void)updateWithDictionary:(NSDictionary*)dictionary;
+
 + (MRTJob*)jobWithDictionary:(NSDictionary*)dictionary inContext:(NSManagedObjectContext*)context;
-+ (NSString*)jobIDFromDictionary:(NSDictionary*)dictionary;
-+ (NSRegularExpression*)titleStatusRegex;
++ (NSString*)absolutePathFromDictionary:(NSDictionary*)dictionary;
 
 @end
