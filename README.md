@@ -7,7 +7,7 @@ Jenkins job status displayer and helper for Mac OS X.
 
 There is a zip file inside “Application” directory. Unzip it, and drag the JenkinsWatcher application to your “Applications” directory. You can then use it like a regular application.
 
-# Milestones
+# TODOs
 
 Not in any particular order
 
