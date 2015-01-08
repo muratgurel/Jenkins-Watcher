@@ -15,6 +15,8 @@ NSString* const kFirstLaunchKey = @"firstLaunchIndicator";
 NSString* const kLaunchOnStartupKey = @"launchOnStartup";
 NSString* const kJenkinsPathKey = @"jenkinsPathKey";
 NSString* const kFetchIntervalKey = @"fetchIntervalKey";
+NSString* const kJenkinsUsernameKey = @"jenkinsUsernameKey";
+NSString* const kJenkinsPasswordKey = @"jenkinsPasswordKey";
 
 @implementation MRTSettings
 
@@ -34,6 +36,9 @@ NSString* const kFetchIntervalKey = @"fetchIntervalKey";
         [prefs setBool:_launchOnStartup forKey:kLaunchOnStartupKey];
         
         _jenkinsPath = [prefs stringForKey:kJenkinsPathKey];
+        _jenkinsUsername = [prefs stringForKey:kJenkinsUsernameKey];
+        _jenkinsPassword = [prefs stringForKey:kJenkinsPasswordKey];
+        
         _fetchInterval = [prefs integerForKey:kFetchIntervalKey];
     }
     return self;
@@ -73,6 +78,22 @@ NSString* const kFetchIntervalKey = @"fetchIntervalKey";
         _fetchInterval = fetchInterval;
         [[NSUserDefaults standardUserDefaults] setInteger:_fetchInterval forKey:kFetchIntervalKey];
         [self dispatchNotificationForPropertyWithName:NSStringFromSelector(@selector(fetchInterval))];
+    }
+}
+
+- (void)setJenkinsUsername:(NSString *)jenkinsUsername {
+    if (_jenkinsUsername != jenkinsUsername) {
+        _jenkinsUsername = jenkinsUsername;
+        [[NSUserDefaults standardUserDefaults] setObject:_jenkinsUsername forKey:kJenkinsUsernameKey];
+        [self dispatchNotificationForPropertyWithName:NSStringFromSelector(@selector(jenkinsUsername))];
+    }
+}
+
+- (void)setJenkinsPassword:(NSString *)jenkinsPassword {
+    if (_jenkinsPassword != jenkinsPassword) {
+        _jenkinsPassword = jenkinsPassword;
+        [[NSUserDefaults standardUserDefaults] setObject:_jenkinsPassword forKey:kJenkinsPasswordKey];
+        [self dispatchNotificationForPropertyWithName:NSStringFromSelector(@selector(jenkinsPassword))];
     }
 }
 

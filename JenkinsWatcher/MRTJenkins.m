@@ -23,6 +23,9 @@ NSString* const kRemovedJobsKey = @"removedJobs";
 @property (nonatomic, readwrite, copy) NSURL *url;
 @property (nonatomic, readwrite, copy) NSArray *failedJobs;
 
+@property (nonatomic, readwrite, copy) NSString *username;
+@property (nonatomic, readwrite, copy) NSString *password;
+
 @property (nonatomic, readwrite) BOOL isAvailable;
 
 @property (nonatomic, readwrite) BOOL isFetching;
@@ -34,6 +37,7 @@ NSString* const kRemovedJobsKey = @"removedJobs";
 @property (nonatomic, strong) NSTimer *refreshTimer;
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSURLSession *session;
 
 @end
 
@@ -69,31 +73,31 @@ NSString* const kRemovedJobsKey = @"removedJobs";
     if (!self.isConnecting) {
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:[self jsonApiURL]
-               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                   dispatch_async(dispatch_get_main_queue(), ^{
-                       NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
-                       if (urlResponse.statusCode == 200) {
-                           NSError *error;
-                           NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                           
-                           self.isAvailable = (jsonDict != nil && jsonDict.count != 0);
-                           [task setResult:@(YES)];
-                           
-                           if (self.autoRefresh && self.refreshTimer == nil) {
-                               [self startRefreshTimer];
-                           }
-                       }
-                       else {
-                           self.isAvailable = NO;
-                           [task setError:[NSError errorWithDomain:@"" code:-101 userInfo:nil]];
-                       }
-                       
-                       self.isConnecting = NO;
-                       self.connectionTask = nil;
-                   });
-               }] resume];
+        self.session = [NSURLSession sessionWithConfiguration:[[self class] authorizedSessionConfigurationWithUsername:self.username andPassword:self.password]];
+        [[self.session dataTaskWithURL:[self jsonApiURL]
+                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+                             if (urlResponse.statusCode == 200) {
+                                 NSError *error;
+                                 NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                                 
+                                 self.isAvailable = (jsonDict != nil && jsonDict.count != 0);
+                                 [task setResult:@(YES)];
+                                 
+                                 if (self.autoRefresh && self.refreshTimer == nil) {
+                                     [self startRefreshTimer];
+                                 }
+                             }
+                             else {
+                                 self.isAvailable = NO;
+                                 [task setError:[NSError errorWithDomain:@"" code:-101 userInfo:nil]];
+                             }
+                             
+                             self.isConnecting = NO;
+                             self.connectionTask = nil;
+                         });
+                     }] resume];
         
         self.isConnecting = YES;
         self.connectionTask = [task task];
@@ -104,28 +108,32 @@ NSString* const kRemovedJobsKey = @"removedJobs";
     }
 }
 
+- (void)setCredentialsWithUsername:(NSString *)username andPassword:(NSString *)password {
+    self.username = username;
+    self.password = password;
+}
+
 - (BFTask*)fetchFailedJobs {
     if (!self.isFetching && self.isAvailable) {
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:[self latestBuildsURL]
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
-                        if (urlResponse.statusCode == 200) {
-                            [self setChangesAndNotifyWithResponseXML:data];
-                        }
-                        else {
-                            self.failedJobs = [NSArray array];
-                            self.isAvailable = NO;
-                            [task setError:[NSError errorWithDomain:@"" code:-102 userInfo:nil]];
-                        }
-                        
-                        self.isFetching = NO;
-                        self.fetchTask = nil;
-                    });
-                }] resume];
+        [[self.session dataTaskWithURL:[self latestBuildsURL]
+                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+                             if (urlResponse.statusCode == 200) {
+                                 [self setChangesAndNotifyWithResponseXML:data];
+                             }
+                             else {
+                                 self.failedJobs = [NSArray array];
+                                 self.isAvailable = NO;
+                                 [task setError:[NSError errorWithDomain:@"" code:-102 userInfo:nil]];
+                             }
+                             
+                             self.isFetching = NO;
+                             self.fetchTask = nil;
+                         });
+                     }] resume];
         
         self.isFetching = YES;
         self.fetchTask = [task task];
@@ -248,6 +256,22 @@ NSString* const kRemovedJobsKey = @"removedJobs";
 
 - (NSURL*)latestBuildsURL {
     return [self.url URLByAppendingPathComponent:@"rssLatest"];
+}
+
++ (NSURLSessionConfiguration*)authorizedSessionConfigurationWithUsername:(NSString*)username
+                                                             andPassword:(NSString*)password {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    if (username && password) {
+        NSString *credentialsString = [NSString stringWithFormat:@"%@:%@", username, password];
+        NSData *credentialsData = [credentialsString dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *baseEncodedCredentials = [credentialsData base64EncodedStringWithOptions:kNilOptions];
+        NSString *authString = [NSString stringWithFormat:@"Basic %@", baseEncodedCredentials];
+        
+        [configuration setHTTPAdditionalHeaders:@{ @"Authorization" : authString }];
+    }
+    
+    return configuration;
 }
 
 @end

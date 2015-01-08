@@ -75,6 +75,7 @@
     MRTJenkins *jenkins = [[MRTJenkins alloc] initWithURL:[NSURL URLWithString:[self.settings jenkinsPath]] context:self.managedObjectContext];
     [jenkins setAutoRefresh:YES];
     [jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
+    [jenkins setCredentialsWithUsername:[self.settings jenkinsUsername] andPassword:[self.settings jenkinsPassword]];
     return jenkins;
 }
 
@@ -165,6 +166,18 @@
     }
     else if ([propertyName isEqualToString:NSStringFromSelector(@selector(fetchInterval))]) {
         [self.jenkins setAutoRefreshInterval:[self.settings fetchInterval]];
+    }
+    else if ([propertyName isEqualToString:NSStringFromSelector(@selector(jenkinsUsername))]
+             || [propertyName isEqualToString:NSStringFromSelector(@selector(jenkinsPassword))]) {
+        if ([self.settings jenkinsUsername] && [self.settings jenkinsPassword]) {
+            [self.jenkins setAutoRefresh:NO]; // Removes timer FIXME: Fix retain problem
+            self.jenkins = [self newJenkins];
+            
+            [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
+                [self.jenkins fetchFailedJobs];
+                return nil;
+            }];
+        }
     }
 }
 

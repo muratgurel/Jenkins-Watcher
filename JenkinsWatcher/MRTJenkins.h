@@ -23,6 +23,9 @@ extern NSString* const kRemovedJobsKey;
 @property (nonatomic, readonly, copy) NSURL *url;
 @property (nonatomic, readonly, copy) NSArray *failedJobs;
 
+@property (nonatomic, readonly, copy) NSString *username;
+@property (nonatomic, readonly, copy) NSString *password;
+
 @property (nonatomic, readonly) BOOL isAvailable;
 @property (nonatomic, readonly) BOOL isFetching;
 
@@ -30,6 +33,8 @@ extern NSString* const kRemovedJobsKey;
 @property (nonatomic) NSUInteger autoRefreshInterval;
 
 - (id)initWithURL:(NSURL*)url context:(NSManagedObjectContext*)context;
+
+- (void)setCredentialsWithUsername:(NSString*)username andPassword:(NSString*)password;
 
 - (BFTask*)connect; // TODO: BFTask
 - (BFTask*)fetchFailedJobs; // TODO: BFTask
