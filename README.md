@@ -17,3 +17,4 @@ Not in any particular order
 - App icon
 - Better image assets
 - Filtering job tracking
+- Use cocoa bindings
