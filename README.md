@@ -18,3 +18,4 @@ Not in any particular order
 - Better image assets
 - Filtering job tracking
 - Use cocoa bindings
+- Unit tests
