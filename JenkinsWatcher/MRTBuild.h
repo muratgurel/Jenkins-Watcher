@@ -14,6 +14,8 @@ typedef NS_ENUM(int16_t, BuildResult) {
     BuildResultUnknown
 };
 
+@class MRTJob;
+
 @interface MRTBuild : NSManagedObject
 
 @property (nonatomic, strong) NSString *buildID;
@@ -26,9 +28,12 @@ typedef NS_ENUM(int16_t, BuildResult) {
 @property (nonatomic) BOOL isBuilding;
 @property (nonatomic) BOOL isFetching;
 
+@property (nonatomic) MRTJob *job;
+
 - (void)updateWithDictionary:(NSDictionary*)dictionary;
 - (void)fetchBuildDetails;
 
 + (MRTBuild*)buildWithDictionary:(NSDictionary*)dictionary inContext:(NSManagedObjectContext*)context;
++ (int)buildNumberFromDictionary:(NSDictionary*)dictionary;
 
 @end

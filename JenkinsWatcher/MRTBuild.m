@@ -18,6 +18,7 @@
 @dynamic result;
 @dynamic isBuilding;
 @dynamic isFetching;
+@dynamic job;
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
@@ -63,7 +64,7 @@
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"Build(%@)", self.fullname];
+    return [NSString stringWithFormat:@"Build(%i)", self.number];
 }
 
 + (MRTBuild*)buildWithDictionary:(NSDictionary *)dictionary
@@ -73,6 +74,10 @@
     [newBuild updateWithDictionary:dictionary];
     
     return newBuild;
+}
+
++ (int)buildNumberFromDictionary:(NSDictionary *)dictionary {
+    return [[dictionary objectForKey:@"number"] intValue];
 }
 
 #pragma mark - Helpers

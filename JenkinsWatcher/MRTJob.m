@@ -7,6 +7,7 @@
 //
 
 #import "MRTJob.h"
+#import "MRTBuild.h"
 #import "NSURLSession+Jenkins.h"
 
 @implementation MRTJob
@@ -18,6 +19,7 @@
 @dynamic status;
 @dynamic isBuildable;
 @dynamic isFetching;
+@dynamic builds;
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
@@ -28,7 +30,20 @@
         self.summary = [dictionary objectForKey:@"description"];
         self.isBuildable = [[dictionary objectForKey:@"buildable"] boolValue];
         
-        // TODO: Parse Builds
+        NSPredicate *buildPredicate = [NSPredicate predicateWithFormat:@"number == $NUMBER"];
+        
+        for (NSDictionary *buildDictionary in [dictionary objectForKey:@"builds"]) {
+            int buildNumber = [MRTBuild buildNumberFromDictionary:buildDictionary];
+            NSSet *result = [self.builds filteredSetUsingPredicate:[buildPredicate predicateWithSubstitutionVariables:@{@"NUMBER":@(buildNumber)}]];
+            if (result.count == 0) {
+                MRTBuild *newBuild = [MRTBuild buildWithDictionary:buildDictionary
+                                                         inContext:self.managedObjectContext];
+                newBuild.job = self;
+                [newBuild fetchBuildDetails];
+                
+                [self addBuildsObject:newBuild];
+            }
+        }
     }
     else {
         // If short json, fetch details
