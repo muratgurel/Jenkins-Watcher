@@ -26,8 +26,6 @@ typedef NS_ENUM(int16_t, JobStatus) {
 @property (nonatomic) BOOL isBuildable;
 @property (nonatomic) BOOL isFetching;
 
-@property (nonatomic, strong) NSURLSession *session;
-
 - (void)updateWithDictionary:(NSDictionary*)dictionary;
 - (void)fetchJobDetails;
 

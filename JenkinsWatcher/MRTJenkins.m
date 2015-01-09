@@ -7,6 +7,7 @@
 //
 
 #import "MRTJenkins.h"
+#import "NSURLSession+Jenkins.h"
 #import "MRTJob.h"
 #import <Bolts/Bolts.h>
 #import <XMLDictionary/XMLDictionary.h>
@@ -70,6 +71,8 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
         [self deleteAllJobs];
         
         self.session = [NSURLSession sessionWithConfiguration:[[self class] authorizedSessionConfigurationWithUsername:self.username andPassword:self.password]];
+        [NSURLSession setDefaultJenkinsSession:self.session];
+        
         [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          dispatch_async(dispatch_get_main_queue(), ^{
@@ -164,7 +167,6 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
         }
         else {
             MRTJob *newJob = [MRTJob jobWithDictionary:jobDict inContext:self.context];
-            newJob.session = self.session;
             [newJob fetchJobDetails];
         }
     }

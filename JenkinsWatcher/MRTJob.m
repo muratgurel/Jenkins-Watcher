@@ -7,6 +7,7 @@
 //
 
 #import "MRTJob.h"
+#import "NSURLSession+Jenkins.h"
 
 @implementation MRTJob
 
@@ -17,7 +18,6 @@
 @dynamic status;
 @dynamic isBuildable;
 @dynamic isFetching;
-@dynamic session;
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
@@ -44,21 +44,22 @@
     if (!self.isFetching) {
         self.isFetching = YES;
         
-        [[self.session dataTaskWithURL:[self jobDetailApiURL]
-                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
-                         if (urlResponse.statusCode == 200) {
-                             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                             if (json) {
-                                 [self updateWithDictionary:json];
-                             }
-                         }
-                         else {
-                             [self performSelector:@selector(fetchJobDetails) withObject:nil afterDelay:2.0f];
-                         }
-                         
-                         self.isFetching = NO;
-                     }] resume];
+        NSURLSession *session = [NSURLSession defaultJenkinsSession];
+        [[session dataTaskWithURL:[self jobDetailApiURL]
+                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                    NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+                    if (urlResponse.statusCode == 200) {
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        if (json) {
+                            [self updateWithDictionary:json];
+                        }
+                    }
+                    else {
+                        [self performSelector:@selector(fetchJobDetails) withObject:nil afterDelay:2.0f];
+                    }
+                    
+                    self.isFetching = NO;
+                }] resume];
     }
 }
 
@@ -70,9 +71,7 @@
                    inContext:(NSManagedObjectContext *)context {
     MRTJob *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job"
                                                    inManagedObjectContext:context];
-    newJob.name = [dictionary objectForKey:@"name"];
-    newJob.url = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-    newJob.status = [[self class] statusFromColorString:[[dictionary objectForKey:@"color"] lowercaseString]];
+    [newJob updateWithDictionary:dictionary];
     
     return newJob;
 }

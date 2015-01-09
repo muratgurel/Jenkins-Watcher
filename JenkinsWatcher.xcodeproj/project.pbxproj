@@ -26,6 +26,7 @@
 		1FC61E0CE5C41EC9E5173326 /* libPods-JenkinsWatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */; };
 		1FE60E7F1A5FBDA000F73DF7 /* MRTBuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE60E7E1A5FBDA000F73DF7 /* MRTBuild.m */; };
 		1FE60E831A5FC19600F73DF7 /* MRTFailedJobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE60E821A5FC19600F73DF7 /* MRTFailedJobsController.m */; };
+		1FE60E871A602DF600F73DF7 /* NSURLSession+Jenkins.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE60E861A602DF600F73DF7 /* NSURLSession+Jenkins.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		1FE60E7E1A5FBDA000F73DF7 /* MRTBuild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTBuild.m; sourceTree = "<group>"; };
 		1FE60E811A5FC19600F73DF7 /* MRTFailedJobsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTFailedJobsController.h; sourceTree = "<group>"; };
 		1FE60E821A5FC19600F73DF7 /* MRTFailedJobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTFailedJobsController.m; sourceTree = "<group>"; };
+		1FE60E851A602DF600F73DF7 /* NSURLSession+Jenkins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+Jenkins.h"; sourceTree = "<group>"; };
+		1FE60E861A602DF600F73DF7 /* NSURLSession+Jenkins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Jenkins.m"; sourceTree = "<group>"; };
 		6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JenkinsWatcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00DE01850A0CA47C7095031 /* Pods-JenkinsWatcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsWatcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.debug.xcconfig"; sourceTree = "<group>"; };
 		BF59E4A4F7DCF9AFDD38ECFF /* Pods-JenkinsWatcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsWatcher.release.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		1F695ACB1A5576D00078CA90 /* JenkinsWatcher */ = {
 			isa = PBXGroup;
 			children = (
+				1FE60E841A602DD700F73DF7 /* Networking */,
 				1FE60E801A5FC16300F73DF7 /* Controllers */,
 				1F93A0631A56CFF3006C125E /* Settings */,
 				1F93A05C1A56CB3C006C125E /* User Notification */,
@@ -235,6 +239,15 @@
 				1FE60E821A5FC19600F73DF7 /* MRTFailedJobsController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		1FE60E841A602DD700F73DF7 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1FE60E851A602DF600F73DF7 /* NSURLSession+Jenkins.h */,
+				1FE60E861A602DF600F73DF7 /* NSURLSession+Jenkins.m */,
+			);
+			name = Networking;
 			sourceTree = "<group>";
 		};
 		2A1EEEAFF4FD2289405BB6B7 /* Pods */ = {
@@ -381,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE60E871A602DF600F73DF7 /* NSURLSession+Jenkins.m in Sources */,
 				1F695AD21A5576D00078CA90 /* main.m in Sources */,
 				1F93A0661A56D001006C125E /* MRTSettings.m in Sources */,
 				1FE60E831A5FC19600F73DF7 /* MRTFailedJobsController.m in Sources */,
