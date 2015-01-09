@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C81f" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Build" representedClassName="MRTBuild" syncable="YES">
         <attribute name="causedBy" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullname" attributeType="String" syncable="YES"/>
@@ -13,14 +13,16 @@
     <entity name="Job" representedClassName="MRTJob" syncable="YES">
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isBuildable" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isFetching" transient="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="session" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="status" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="0" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" attributeType="Transformable" valueTransformerName="MRTURLTransformer" syncable="YES"/>
         <relationship name="builds" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Build" inverseName="job" inverseEntity="Build" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Job" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="Build" positionX="-54" positionY="63" width="128" height="163"/>
+        <element name="Job" positionX="-63" positionY="-18" width="128" height="180"/>
     </elements>
 </model>

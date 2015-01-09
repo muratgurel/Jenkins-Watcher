@@ -66,6 +66,9 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
     if (!self.isConnecting) {
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
+        // Jenkins may have changed, remove old jobs & builds
+        [self deleteAllJobs];
+        
         self.session = [NSURLSession sessionWithConfiguration:[[self class] authorizedSessionConfigurationWithUsername:self.username andPassword:self.password]];
         [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -148,7 +151,7 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
     if (!jenkinsInfo) return;
     
     NSArray *jobs = [jenkinsInfo objectForKey:@"jobs"];
-    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"url.absolutePath == $ABSOLUTE_PATH"];
+    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"url.absoluteString == $ABSOLUTE_PATH"];
     
     for (NSDictionary *jobDict in jobs) {
         NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Job"];
@@ -160,7 +163,9 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
             [job updateWithDictionary:jobDict];
         }
         else {
-            [MRTJob jobWithDictionary:jobDict inContext:self.context];
+            MRTJob *newJob = [MRTJob jobWithDictionary:jobDict inContext:self.context];
+            newJob.session = self.session;
+            [newJob fetchJobDetails];
         }
     }
     
@@ -173,6 +178,15 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
 
 - (void)refreshTick:(NSTimer*)timer {
     [self fetchJobs];
+}
+
+- (void)deleteAllJobs {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Job"];
+    NSArray *allJobs = [self.context executeFetchRequest:fetchRequest error:nil];
+    
+    for (MRTJob *job in allJobs) {
+        [self.context deleteObject:job];
+    }
 }
 
 #pragma mark - Overriden Setters

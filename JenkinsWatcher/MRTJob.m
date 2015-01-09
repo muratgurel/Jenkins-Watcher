@@ -10,37 +10,98 @@
 
 @implementation MRTJob
 
-@dynamic jobID;
+@dynamic displayName;
 @dynamic name;
+@dynamic summary;
 @dynamic url;
+@dynamic status;
+@dynamic isBuildable;
+@dynamic isFetching;
+@dynamic session;
 
-+ (MRTJob*)jobWithDictionary:(NSDictionary *)dictionary
-                   inContext:(NSManagedObjectContext *)context {
-    MRTJob *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job"
-                                                   inManagedObjectContext:context];
-    newJob.jobID = [dictionary objectForKey:@"id"];
-    newJob.url = [NSURL URLWithString:[dictionary valueForKeyPath:@"link._href"]];
+- (void)updateWithDictionary:(NSDictionary *)dictionary {
+    NSParameterAssert(dictionary);
     
-    NSString *title = [dictionary objectForKey:@"title"];
-    newJob.name = [[[self class] titleStatusRegex] stringByReplacingMatchesInString:title
-                                                                            options:kNilOptions
-                                                                              range:NSMakeRange(0, [title length])
-                                                                       withTemplate:@""];
-    return newJob;
+    if ([dictionary objectForKey:@"displayName"]) {
+        // Longer JSON
+        self.displayName = [dictionary objectForKey:@"displayName"];
+        self.summary = [dictionary objectForKey:@"description"];
+        self.isBuildable = [[dictionary objectForKey:@"buildable"] boolValue];
+        
+        // TODO: Parse Builds
+    }
+    else {
+        // If short json, fetch details
+        [self fetchJobDetails];
+    }
+    
+    self.name = [dictionary objectForKey:@"name"];
+    self.url = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
+    self.status = [[self class] statusFromColorString:[[dictionary objectForKey:@"color"] lowercaseString]];
+}
+
+- (void)fetchJobDetails {
+    if (!self.isFetching) {
+        self.isFetching = YES;
+        
+        [[self.session dataTaskWithURL:[self jobDetailApiURL]
+                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                         NSLog(@"Fetched Job Detail: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                         
+                         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+                         if (urlResponse.statusCode == 200) {
+                             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                             if (json) {
+                                 [self updateWithDictionary:json];
+                             }
+                         }
+                         else {
+                             [self performSelector:@selector(fetchJobDetails) withObject:nil afterDelay:2.0f];
+                         }
+                         
+                         self.isFetching = NO;
+                     }] resume];
+    }
 }
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"Job(%@)", self.name];
 }
 
-+ (NSString*)jobIDFromDictionary:(NSDictionary *)dictionary {
-    return [dictionary objectForKey:@"id"];
++ (MRTJob*)jobWithDictionary:(NSDictionary *)dictionary
+                   inContext:(NSManagedObjectContext *)context {
+    MRTJob *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job"
+                                                   inManagedObjectContext:context];
+    newJob.name = [dictionary objectForKey:@"name"];
+    newJob.url = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
+    newJob.status = [[self class] statusFromColorString:[[dictionary objectForKey:@"color"] lowercaseString]];
+    
+    return newJob;
 }
 
-+ (NSRegularExpression*)titleStatusRegex {
-    return [NSRegularExpression regularExpressionWithPattern:@"\\s[(]broken since[\\s\\w#]+[)]$"
-                                                     options:kNilOptions
-                                                       error:nil];
+#pragma mark - Helpers
+
+- (NSURL*)jobDetailApiURL {
+    return [self.url URLByAppendingPathComponent:@"api/json"];
+}
+
++ (NSString*)absolutePathFromDictionary:(NSDictionary *)dictionary {
+    return [dictionary objectForKey:@"url"];
+}
+
++ (JobStatus)statusFromColorString:(NSString*)colorString {
+    if ([colorString isEqualToString:@"blue"]) {
+        return JobStatusStable;
+    }
+    else if ([colorString isEqualToString:@"yellow"]) {
+        return JobStatusUnstable;
+    }
+    else if ([colorString isEqualToString:@"red"]) {
+        return JobStatusFailed;
+    }
+    else {
+        return JobStatusUnknown;
+    }
 }
 
 @end
