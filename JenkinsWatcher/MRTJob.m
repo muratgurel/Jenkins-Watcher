@@ -46,8 +46,6 @@
         
         [[self.session dataTaskWithURL:[self jobDetailApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                         NSLog(@"Fetched Job Detail: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                         
                          NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
                          if (urlResponse.statusCode == 200) {
                              NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
