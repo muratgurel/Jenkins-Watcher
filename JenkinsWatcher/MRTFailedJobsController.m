@@ -13,6 +13,7 @@
 #import "MRTJobItem.h"
 #import "MRTJob.h"
 
+// TDOO: This class can be refactored into 2 classes. StatusBarController, NotificationController
 @interface MRTFailedJobsController () <NSUserNotificationCenterDelegate>
 
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *context;
