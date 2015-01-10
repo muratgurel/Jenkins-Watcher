@@ -19,3 +19,4 @@ Not in any particular order
 - Filtering job tracking
 - Use cocoa bindings
 - Unit tests
+- Travis integration
