@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "MRTAppStatusBar.h"
 #import "MRTJobItem.h"
+#import "MRTBuild.h"
 #import "MRTJob.h"
 
 // TDOO: This class can be refactored into 2 classes. StatusBarController, NotificationController
@@ -60,7 +61,7 @@
 }
 
 - (void)handleJobItemClick:(MRTJobItem*)item {
-    [[NSWorkspace sharedWorkspace] openURL:[item.job url]];
+    [self openLatestBuildInJobInSafari:item.job];
 }
 
 - (void)updateStatusBar {
@@ -148,11 +149,20 @@
     NSManagedObjectID *objectID = [[self.context persistentStoreCoordinator] managedObjectIDForURIRepresentation:objectURI];
     if (objectID) {
         MRTJob *job = (MRTJob*)[self.context objectWithID:objectID];
-        [[NSWorkspace sharedWorkspace] openURL:job.url];
+        [self openLatestBuildInJobInSafari:job];
     }
 }
 
 #pragma mark - Helpers
+
+- (void)openLatestBuildInJobInSafari:(MRTJob*)job {
+    NSSortDescriptor *buildNumberSorter = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:NO];
+    NSArray *results = [job.builds sortedArrayUsingDescriptors:@[buildNumberSorter]];
+    if (results.count > 0) {
+        MRTBuild *latestBuild = [results objectAtIndex:0];
+        [[NSWorkspace sharedWorkspace] openURL:[latestBuild url]];
+    }
+}
 
 + (NSArray*)sortDescriptors {
     static NSArray *_sortDescriptors = nil;
