@@ -7,21 +7,17 @@
 //
 
 #import "MRTJenkins.h"
+#import "NSURLSession+Jenkins.h"
 #import "MRTJob.h"
 #import <Bolts/Bolts.h>
 #import <XMLDictionary/XMLDictionary.h>
 
 NSString* const kJenkinsDidBecomeAvailableNotification = @"com.muratgurel.notification.jenkinsAvailable";
-NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.notification.jenkinsUnavailable";;
-NSString* const kJenkinsDidUpdateFailedJobsNotification = @"com.muratgurel.notification.jenkinsFailedJobUpdate";
-
-NSString* const kInsertedJobsKey = @"insertedJobs";
-NSString* const kRemovedJobsKey = @"removedJobs";
+NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.notification.jenkinsUnavailable";
 
 @interface MRTJenkins ()
 
 @property (nonatomic, readwrite, copy) NSURL *url;
-@property (nonatomic, readwrite, copy) NSArray *failedJobs;
 
 @property (nonatomic, readwrite, copy) NSString *username;
 @property (nonatomic, readwrite, copy) NSString *password;
@@ -63,8 +59,6 @@ NSString* const kRemovedJobsKey = @"removedJobs";
         _autoRefresh = YES;
         _autoRefreshInterval = 30;
         _refreshTimer = nil;
-        
-        _failedJobs = [NSArray array];
     }
     return self;
 }
@@ -73,7 +67,12 @@ NSString* const kRemovedJobsKey = @"removedJobs";
     if (!self.isConnecting) {
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
+        // Jenkins may have changed, remove old jobs & builds
+        [self deleteAllJobs];
+        
         self.session = [NSURLSession sessionWithConfiguration:[[self class] authorizedSessionConfigurationWithUsername:self.username andPassword:self.password]];
+        [NSURLSession setDefaultJenkinsSession:self.session];
+        
         [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          dispatch_async(dispatch_get_main_queue(), ^{
@@ -113,19 +112,18 @@ NSString* const kRemovedJobsKey = @"removedJobs";
     self.password = password;
 }
 
-- (BFTask*)fetchFailedJobs {
+- (BFTask*)fetchJobs {
     if (!self.isFetching && self.isAvailable) {
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
-        [[self.session dataTaskWithURL:[self latestBuildsURL]
+        [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          dispatch_async(dispatch_get_main_queue(), ^{
                              NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
                              if (urlResponse.statusCode == 200) {
-                                 [self setChangesAndNotifyWithResponseXML:data];
+                                 [self updateJenkinsWithData:data];
                              }
                              else {
-                                 self.failedJobs = [NSArray array];
                                  self.isAvailable = NO;
                                  [task setError:[NSError errorWithDomain:@"" code:-102 userInfo:nil]];
                              }
@@ -144,59 +142,36 @@ NSString* const kRemovedJobsKey = @"removedJobs";
     }
 }
 
-- (void)setChangesAndNotifyWithResponseXML:(NSData*)xmlData {
-    NSParameterAssert(xmlData);
+- (void)updateJenkinsWithData:(NSData*)jsonData {
+    NSParameterAssert(jsonData);
     
-    XMLDictionaryParser *parser = [[XMLDictionaryParser alloc] init];
-    NSDictionary *xmlDictionary = [parser dictionaryWithData:xmlData];
+    NSError *error;
+    NSDictionary *jenkinsInfo = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                options:kNilOptions
+                                                                  error:&error];
     
-    NSRegularExpression *regex = [MRTJob titleStatusRegex];
-    NSArray *currentJobs = self.failedJobs;
+    // TODO: Error handling
+    if (!jenkinsInfo) return;
     
-    NSMutableSet *insertedJobs = [NSMutableSet set];
-    NSMutableSet *unchangedJobs = [NSMutableSet set];
+    NSArray *jobs = [jenkinsInfo objectForKey:@"jobs"];
+    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"url.absoluteString == $ABSOLUTE_PATH"];
     
-    NSArray *entries;
-    if ([[xmlDictionary objectForKey:@"entry"] isKindOfClass:[NSArray class]]) {
-        entries = [xmlDictionary objectForKey:@"entry"];
-    }
-    else if ([[xmlDictionary objectForKey:@"entry"] isKindOfClass:[NSDictionary class]]) {
-        entries = [NSArray arrayWithObject:[xmlDictionary objectForKey:@"entry"]];
-    }
-    else {
-        entries = [NSArray array];
-    }
-    
-    for (NSDictionary *entryDictionary in (NSArray*)entries) {
-        NSString *title = [entryDictionary objectForKey:@"title"];
-        if ([regex numberOfMatchesInString:title options:kNilOptions range:NSMakeRange(0, [title length])] > 0) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"jobID == %@", [MRTJob jobIDFromDictionary:entryDictionary]];
-            NSArray *filteredArray = [currentJobs filteredArrayUsingPredicate:predicate];
-            
-            if ([filteredArray count] > 0) {
-                [unchangedJobs addObject:[filteredArray objectAtIndex:0]];
-            }
-            else {
-                [insertedJobs addObject:[MRTJob jobWithDictionary:entryDictionary inContext:self.context]];
-            }
+    for (NSDictionary *jobDict in jobs) {
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Job"];
+        fetchRequest.predicate = [predicateTemplate predicateWithSubstitutionVariables:@{@"ABSOLUTE_PATH":[MRTJob absolutePathFromDictionary:jobDict]}];
+        
+        NSArray *results = [self.context executeFetchRequest:fetchRequest error:nil];
+        if (results.count > 0) {
+            MRTJob *job = (MRTJob*)results[0];
+            [job updateWithDictionary:jobDict];
+        }
+        else {
+            MRTJob *newJob = [MRTJob jobWithDictionary:jobDict inContext:self.context];
+            [newJob fetchJobDetails];
         }
     }
     
-    NSMutableSet *removedJobs = [NSMutableSet setWithArray:self.failedJobs];
-    [removedJobs minusSet:unchangedJobs];
-    
-    NSSet *failedJobsSet = [unchangedJobs setByAddingObjectsFromSet:insertedJobs];
-    
-    self.failedJobs = [failedJobsSet allObjects];
-    
-    NSDictionary *dictionary = @{ kInsertedJobsKey : [insertedJobs allObjects],
-                                  kRemovedJobsKey : [removedJobs allObjects] };
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kJenkinsDidUpdateFailedJobsNotification object:self userInfo:dictionary];
-    
-    for (MRTJob *job in removedJobs) {
-        [self.context deleteObject:job];
-    }
+    // TODO: Delete removed job from the context
 }
 
 - (void)startRefreshTimer {
@@ -204,7 +179,16 @@ NSString* const kRemovedJobsKey = @"removedJobs";
 }
 
 - (void)refreshTick:(NSTimer*)timer {
-    [self fetchFailedJobs];
+    [self fetchJobs];
+}
+
+- (void)deleteAllJobs {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Job"];
+    NSArray *allJobs = [self.context executeFetchRequest:fetchRequest error:nil];
+    
+    for (MRTJob *job in allJobs) {
+        [self.context deleteObject:job];
+    }
 }
 
 #pragma mark - Overriden Setters
@@ -252,10 +236,6 @@ NSString* const kRemovedJobsKey = @"removedJobs";
 
 - (NSURL*)jsonApiURL {
     return [self.url URLByAppendingPathComponent:@"api/json"];
-}
-
-- (NSURL*)latestBuildsURL {
-    return [self.url URLByAppendingPathComponent:@"rssLatest"];
 }
 
 + (NSURLSessionConfiguration*)authorizedSessionConfigurationWithUsername:(NSString*)username

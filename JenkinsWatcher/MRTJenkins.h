@@ -10,10 +10,6 @@
 
 extern NSString* const kJenkinsDidBecomeAvailableNotification;
 extern NSString* const kJenkinsDidBecomeUnavailableNotification;
-extern NSString* const kJenkinsDidUpdateFailedJobsNotification;
-
-extern NSString* const kInsertedJobsKey;
-extern NSString* const kRemovedJobsKey;
 
 @class BFTask;
 @class NSManagedObjectContext;
@@ -21,7 +17,6 @@ extern NSString* const kRemovedJobsKey;
 @interface MRTJenkins : NSObject
 
 @property (nonatomic, readonly, copy) NSURL *url;
-@property (nonatomic, readonly, copy) NSArray *failedJobs;
 
 @property (nonatomic, readonly, copy) NSString *username;
 @property (nonatomic, readonly, copy) NSString *password;
@@ -36,7 +31,7 @@ extern NSString* const kRemovedJobsKey;
 
 - (void)setCredentialsWithUsername:(NSString*)username andPassword:(NSString*)password;
 
-- (BFTask*)connect; // TODO: BFTask
-- (BFTask*)fetchFailedJobs; // TODO: BFTask
+- (BFTask*)connect;
+- (BFTask*)fetchJobs;
 
 @end

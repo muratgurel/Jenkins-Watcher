@@ -24,6 +24,9 @@
 		1F93A0661A56D001006C125E /* MRTSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93A0651A56D001006C125E /* MRTSettings.m */; };
 		1F982B871A5D457A00B96388 /* MRTJobItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F982B861A5D457A00B96388 /* MRTJobItemView.m */; };
 		1FC61E0CE5C41EC9E5173326 /* libPods-JenkinsWatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */; };
+		1FE60E7F1A5FBDA000F73DF7 /* MRTBuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE60E7E1A5FBDA000F73DF7 /* MRTBuild.m */; };
+		1FE60E831A5FC19600F73DF7 /* MRTFailedJobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE60E821A5FC19600F73DF7 /* MRTFailedJobsController.m */; };
+		1FE60E871A602DF600F73DF7 /* NSURLSession+Jenkins.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE60E861A602DF600F73DF7 /* NSURLSession+Jenkins.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,12 @@
 		1F93A0651A56D001006C125E /* MRTSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTSettings.m; sourceTree = "<group>"; };
 		1F982B851A5D457A00B96388 /* MRTJobItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTJobItemView.h; sourceTree = "<group>"; };
 		1F982B861A5D457A00B96388 /* MRTJobItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTJobItemView.m; sourceTree = "<group>"; };
+		1FE60E7D1A5FBDA000F73DF7 /* MRTBuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTBuild.h; sourceTree = "<group>"; };
+		1FE60E7E1A5FBDA000F73DF7 /* MRTBuild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTBuild.m; sourceTree = "<group>"; };
+		1FE60E811A5FC19600F73DF7 /* MRTFailedJobsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTFailedJobsController.h; sourceTree = "<group>"; };
+		1FE60E821A5FC19600F73DF7 /* MRTFailedJobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTFailedJobsController.m; sourceTree = "<group>"; };
+		1FE60E851A602DF600F73DF7 /* NSURLSession+Jenkins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+Jenkins.h"; sourceTree = "<group>"; };
+		1FE60E861A602DF600F73DF7 /* NSURLSession+Jenkins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Jenkins.m"; sourceTree = "<group>"; };
 		6FFCBF19228B6AE1FDA9C9B3 /* libPods-JenkinsWatcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JenkinsWatcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00DE01850A0CA47C7095031 /* Pods-JenkinsWatcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsWatcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.debug.xcconfig"; sourceTree = "<group>"; };
 		BF59E4A4F7DCF9AFDD38ECFF /* Pods-JenkinsWatcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JenkinsWatcher.release.xcconfig"; path = "Pods/Target Support Files/Pods-JenkinsWatcher/Pods-JenkinsWatcher.release.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +132,8 @@
 		1F695ACB1A5576D00078CA90 /* JenkinsWatcher */ = {
 			isa = PBXGroup;
 			children = (
+				1FE60E841A602DD700F73DF7 /* Networking */,
+				1FE60E801A5FC16300F73DF7 /* Controllers */,
 				1F93A0631A56CFF3006C125E /* Settings */,
 				1F93A05C1A56CB3C006C125E /* User Notification */,
 				1F695AFE1A55BA850078CA90 /* Job Item */,
@@ -181,6 +192,8 @@
 				1F695AF91A55869F0078CA90 /* MRTJenkins.m */,
 				1F695AFB1A55A8710078CA90 /* MRTJob.h */,
 				1F695AFC1A55A8710078CA90 /* MRTJob.m */,
+				1FE60E7D1A5FBDA000F73DF7 /* MRTBuild.h */,
+				1FE60E7E1A5FBDA000F73DF7 /* MRTBuild.m */,
 			);
 			name = Jenkins;
 			sourceTree = "<group>";
@@ -217,6 +230,24 @@
 				1F6F365C1A599E98003D652F /* MRTSettingsWindowController.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		1FE60E801A5FC16300F73DF7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1FE60E811A5FC19600F73DF7 /* MRTFailedJobsController.h */,
+				1FE60E821A5FC19600F73DF7 /* MRTFailedJobsController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		1FE60E841A602DD700F73DF7 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1FE60E851A602DF600F73DF7 /* NSURLSession+Jenkins.h */,
+				1FE60E861A602DF600F73DF7 /* NSURLSession+Jenkins.m */,
+			);
+			name = Networking;
 			sourceTree = "<group>";
 		};
 		2A1EEEAFF4FD2289405BB6B7 /* Pods */ = {
@@ -363,8 +394,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE60E871A602DF600F73DF7 /* NSURLSession+Jenkins.m in Sources */,
 				1F695AD21A5576D00078CA90 /* main.m in Sources */,
 				1F93A0661A56D001006C125E /* MRTSettings.m in Sources */,
+				1FE60E831A5FC19600F73DF7 /* MRTFailedJobsController.m in Sources */,
 				1F695AF51A5578270078CA90 /* MRTAppStatusBar.m in Sources */,
 				1F982B871A5D457A00B96388 /* MRTJobItemView.m in Sources */,
 				1F6F36551A5814B0003D652F /* MRTGeneralViewController.m in Sources */,
@@ -373,6 +406,7 @@
 				1F695B031A55C2510078CA90 /* MRTJobItem.m in Sources */,
 				1F695AD01A5576D00078CA90 /* AppDelegate.m in Sources */,
 				1F695AFD1A55A8710078CA90 /* MRTJob.m in Sources */,
+				1FE60E7F1A5FBDA000F73DF7 /* MRTBuild.m in Sources */,
 				1F695AFA1A55869F0078CA90 /* MRTJenkins.m in Sources */,
 				1F695AD81A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld in Sources */,
 			);

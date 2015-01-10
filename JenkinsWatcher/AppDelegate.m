@@ -10,23 +10,22 @@
 #import "MRTJob.h"
 #import "MRTJenkins.h"
 #import "MRTAppStatusBar.h"
-#import "MRTJobItem.h"
 #import "MRTSettings.h"
 #import <Bolts/Bolts.h>
 #import "MRTGeneralViewController.h"
-#import "NSUserNotification+JobAdditions.h"
 
-@interface AppDelegate () <MRTStatusBarDelegate, NSUserNotificationCenterDelegate>
+#import "MRTFailedJobsController.h"
+
+@interface AppDelegate () <MRTStatusBarDelegate>
 
 @property (nonatomic, strong) MRTAppStatusBar *statusBar;
 @property (nonatomic, strong) MRTJenkins *jenkins;
 @property (nonatomic, strong) MRTSettings *settings;
 
 @property (nonatomic, strong) NSStoryboard *storyboard;
-
 @property (nonatomic, strong) NSWindowController *activeWindowController;
 
-@property (nonatomic) BOOL didFetchJobsFirstTime;
+@property (nonatomic, strong) MRTFailedJobsController *failedJobsController;
 
 - (IBAction)saveAction:(id)sender;
 
@@ -35,17 +34,14 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:kSettingsDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jenkinsDidUpdateJobs:) name:kJenkinsDidUpdateFailedJobsNotification object:nil];
     
     self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
     self.settings = [[MRTSettings alloc] init];
     self.statusBar = [[MRTAppStatusBar alloc] initWithDelegate:self];
     
-    self.didFetchJobsFirstTime = NO;
+    self.failedJobsController = [[MRTFailedJobsController alloc] initWithContext:self.managedObjectContext andStatusBar:self.statusBar];
     
     if (![self.settings jenkinsPath]) {
         [self presentSettingsWindow];
@@ -54,7 +50,7 @@
         self.jenkins = [self newJenkins];
         
         [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-            [self.jenkins fetchFailedJobs];
+            [self.jenkins fetchJobs];
             return nil;
         }];
     }
@@ -79,30 +75,6 @@
     return jenkins;
 }
 
-#pragma mark - Menu Item Action
-
-- (void)handleJobItemClick:(MRTJobItem*)item {
-    [[NSWorkspace sharedWorkspace] openURL:[item.job url]];
-}
-
-#pragma mark - User Notification Delegate
-
-- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
-     shouldPresentNotification:(NSUserNotification *)notification {
-    return YES;
-}
-
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center
-       didActivateNotification:(NSUserNotification *)notification
-{
-    NSURL *objectURI = [NSURL URLWithString:[notification.userInfo objectForKey:kJobObjectURIKey]];
-    NSManagedObjectID *objectID = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURI];
-    if (objectID) {
-        MRTJob *job = (MRTJob*)[self.managedObjectContext objectWithID:objectID];
-        [[NSWorkspace sharedWorkspace] openURL:job.url];
-    }
-}
-
 #pragma mark - Status Bar Delegate
 
 - (void)showSettings {
@@ -111,44 +83,6 @@
 
 - (void)quit {
     [[NSApplication sharedApplication] terminate:self];
-}
-
-#pragma mark - Jenkins Notification
-
-- (void)jenkinsDidUpdateJobs:(NSNotification*)notification {
-    if (self.didFetchJobsFirstTime) {
-        NSArray *removedJobs = [notification.userInfo objectForKey:kRemovedJobsKey];
-        NSArray *insertedJobs = [notification.userInfo objectForKey:kInsertedJobsKey];
-        
-        for (MRTJob *job in removedJobs) {
-            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification normalNotificationWithJob:job]];
-        }
-        
-        for (MRTJob *job in insertedJobs) {
-            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:[NSUserNotification failedNotificationWithJob:job]];
-        }
-    }
-    else {
-        self.didFetchJobsFirstTime = YES;
-    }
-    
-    [self.statusBar clearJobItems];
-    
-    // TODO: Sort jobs so they appear the same always
-    for (MRTJob *job in [self.jenkins failedJobs]) {
-        MRTJobItem *item = [[MRTJobItem alloc] initWithJob:job];
-        [item setTarget:self];
-        [item setAction:@selector(handleJobItemClick:)];
-        
-        [self.statusBar addJobMenuItem:item];
-    }
-    
-    if ([[self.jenkins failedJobs] count] > 0) {
-        [self.statusBar setIconColor:StatusIconColorRed];
-    }
-    else {
-        [self.statusBar setIconColor:StatusIconColorBlack];
-    }
 }
 
 #pragma mark - Settings Notification
@@ -160,7 +94,7 @@
         self.jenkins = [self newJenkins];
         
         [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-            [self.jenkins fetchFailedJobs];
+            [self.jenkins fetchJobs];
             return nil;
         }];
     }
@@ -174,7 +108,7 @@
             self.jenkins = [self newJenkins];
             
             [[self.jenkins connect] continueWithBlock:^id(BFTask *task) {
-                [self.jenkins fetchFailedJobs];
+                [self.jenkins fetchJobs];
                 return nil;
             }];
         }
