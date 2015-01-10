@@ -107,7 +107,7 @@
     NSPredicate *jobPredicate = [NSPredicate predicateWithFormat: @"class == %@", [MRTJob class]];
     NSPredicate *failedJobPredicate = [NSPredicate predicateWithFormat: @"class == %@ && status == %i", [MRTJob class], JobStatusFailed];
     
-    NSArray *newFailedJobs = [insertedObjects filteredArrayUsingPredicate:failedJobPredicate];
+    NSMutableArray *newFailedJobs = [[insertedObjects filteredArrayUsingPredicate:failedJobPredicate] mutableCopy];
     NSMutableArray *fixedJobs = [NSMutableArray array];
     
     NSArray *updatedJobs = [updatedObjects filteredArrayUsingPredicate:jobPredicate];
@@ -117,6 +117,9 @@
             JobStatus oldStatus = [[changedValues objectForKey:@"status"] intValue];
             if (oldStatus == JobStatusFailed && job.status == JobStatusStable) {
                 [fixedJobs addObject:job];
+            }
+            else if (oldStatus != JobStatusFailed && job.status == JobStatusFailed) {
+                [newFailedJobs addObject:job];
             }
         }
     }

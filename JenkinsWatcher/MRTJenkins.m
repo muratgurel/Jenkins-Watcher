@@ -166,8 +166,7 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
             [job updateWithDictionary:jobDict];
         }
         else {
-            MRTJob *newJob = [MRTJob jobWithDictionary:jobDict inContext:self.context];
-            [newJob fetchJobDetails];
+            [MRTJob jobWithDictionary:jobDict inContext:self.context];
         }
     }
     
@@ -235,7 +234,12 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
 #pragma mark - Helpers
 
 - (NSURL*)jsonApiURL {
-    return [self.url URLByAppendingPathComponent:@"api/json"];
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithURL:self.url
+                                                  resolvingAgainstBaseURL:NO];
+    urlComponents.path = @"/api/json";
+    urlComponents.query = @"depth=2";
+    
+    return [urlComponents URL];
 }
 
 + (NSURLSessionConfiguration*)authorizedSessionConfigurationWithUsername:(NSString*)username

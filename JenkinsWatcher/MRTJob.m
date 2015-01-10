@@ -39,7 +39,6 @@
                 MRTBuild *newBuild = [MRTBuild buildWithDictionary:buildDictionary
                                                          inContext:self.managedObjectContext];
                 newBuild.job = self;
-                [newBuild fetchBuildDetails];
                 
                 [self addBuildsObject:newBuild];
             }
