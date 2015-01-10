@@ -29,7 +29,6 @@
         self.buildID = [dictionary objectForKey:@"id"];
         self.result = [[self class] resultFromString:[[dictionary objectForKey:@"result"] lowercaseString]];
         self.isBuilding = [[dictionary objectForKey:@"building"] boolValue];
-        // TODO: Parse Builds
     }
     else {
         // If short json, fetch details
