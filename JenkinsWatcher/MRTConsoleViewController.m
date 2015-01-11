@@ -28,6 +28,7 @@
     
     self.coloringDatas = [MRTColorDataParser parseString:coloringText];
     
+    [self.textView setTextContainerInset:NSMakeSize(10, 10)];
     [[self.textView textStorage] setDelegate:self];
     [self.textView setString:@"Started by user anonymous\nBuilding in workspace /Users/Shared/Jenkins/Home/workspace/Mobile - iOS - Deneme\n[Mobile - iOS - Deneme] $ /bin/sh -xe /Users/Shared/Jenkins/tmp/hudson5351916568551339527.sh\n+ exit 1\nBuild step 'Execute shell' marked build as failure\nFinished: FAILURE"];
 }
@@ -40,6 +41,7 @@
     NSUInteger textLength = string.length;
     
     [textStorage removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, textLength)];
+    [textStorage addAttribute:NSForegroundColorAttributeName value:[NSColor lightGrayColor] range:NSMakeRange(0, textLength)];
     
     NSUInteger lineOffset = 0;
     NSArray *lines = [string componentsSeparatedByString:@"\n"];
