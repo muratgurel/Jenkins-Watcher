@@ -72,12 +72,11 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
         
         self.session = [NSURLSession sessionWithConfiguration:[[self class] authorizedSessionConfigurationWithUsername:self.username andPassword:self.password]];
         [NSURLSession setDefaultJenkinsSession:self.session];
-        NSLog(@"%@", [self jsonApiURL]);
+        
         [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          dispatch_async(dispatch_get_main_queue(), ^{
                              NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
-                             NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                              if (urlResponse.statusCode == 200) {
                                  NSError *error;
                                  NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
