@@ -5,7 +5,7 @@ Jenkins job status displayer and helper for Mac OS X.
 
 # Installation
 
-Application is hosted on sourceforge.net. You can go [here](http://sourceforge.net/projects/jenkinswatcher/files/jenkins-watcher-v0.1.0/download) and download the latest version.
+Application is hosted on sourceforge.net. You can click [here](http://sourceforge.net/projects/jenkinswatcher/files/jenkins-watcher-v0.1.0.zip/download) and download the latest version.
 
 # TODOs
 
