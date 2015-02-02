@@ -5,7 +5,7 @@ Jenkins job status displayer and helper for Mac OS X.
 
 # Installation
 
-There is a zip file inside “Application” directory. Unzip it, and drag the JenkinsWatcher application to your “Applications” directory. You can then use it like a regular application.
+Application is hosted on sourceforge.net. You can go [here](http://sourceforge.net/projects/jenkinswatcher/files/jenkins-watcher-v0.1.0/download) and download the latest version.
 
 # TODOs
 
