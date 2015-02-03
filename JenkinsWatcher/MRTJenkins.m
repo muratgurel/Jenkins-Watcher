@@ -10,7 +10,7 @@
 #import "NSURLSession+Jenkins.h"
 #import "MRTJob.h"
 #import <Bolts/Bolts.h>
-#import <XMLDictionary/XMLDictionary.h>
+#import <CocoaLumberjack.h>
 
 NSString* const kJenkinsDidBecomeAvailableNotification = @"com.muratgurel.notification.jenkinsAvailable";
 NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.notification.jenkinsUnavailable";
@@ -73,10 +73,13 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
         self.session = [NSURLSession sessionWithConfiguration:[[self class] authorizedSessionConfigurationWithUsername:self.username andPassword:self.password]];
         [NSURLSession setDefaultJenkinsSession:self.session];
         
+        DDLogDebug(@"Trying to connect to jenkins on %@", [self jsonApiURL]);
         [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          dispatch_async(dispatch_get_main_queue(), ^{
                              NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+                             DDLogDebug(@"Recieved response with status code (%li)", (long)urlResponse.statusCode);
+                             DDLogVerbose(@"Response string: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                              if (urlResponse.statusCode == 200) {
                                  NSError *error;
                                  NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
@@ -91,6 +94,7 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
                              else {
                                  self.isAvailable = NO;
                                  [task setError:[NSError errorWithDomain:@"" code:-101 userInfo:nil]];
+                                 DDLogError(@"Error while trying to connect to jenkins: %@", error);
                              }
                              
                              self.isConnecting = NO;
@@ -116,16 +120,20 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
     if (!self.isFetching && self.isAvailable) {
         BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
         
+        DDLogDebug(@"Fething jobs on %@", [self jsonApiURL]);
         [[self.session dataTaskWithURL:[self jsonApiURL]
                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                          dispatch_async(dispatch_get_main_queue(), ^{
                              NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+                             DDLogDebug(@"Recieved response for fetching jobs with status code (%li)", urlResponse.statusCode);
+                             DDLogVerbose(@"Response string: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                              if (urlResponse.statusCode == 200) {
                                  [self updateJenkinsWithData:data];
                              }
                              else {
                                  self.isAvailable = NO;
                                  [task setError:[NSError errorWithDomain:@"" code:-102 userInfo:nil]];
+                                 DDLogError(@"Error while trying to fetch jobs: %@", error);
                              }
                              
                              self.isFetching = NO;
@@ -151,7 +159,10 @@ NSString* const kJenkinsDidBecomeUnavailableNotification = @"com.muratgurel.noti
                                                                   error:&error];
     
     // TODO: Error handling
-    if (!jenkinsInfo) return;
+    if (!jenkinsInfo) {
+        DDLogError(@"Error while parsing jenkins response to json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+        return;
+    }
     
     NSArray *jobs = [jenkinsInfo objectForKey:@"jobs"];
     NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"url.absoluteString == $ABSOLUTE_PATH"];

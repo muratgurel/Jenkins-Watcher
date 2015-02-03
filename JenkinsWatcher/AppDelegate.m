@@ -36,6 +36,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:kSettingsDidChangeNotification object:nil];
     
+    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelVerbose];
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelDebug];
+    
     self.storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
     self.settings = [[MRTSettings alloc] init];

@@ -40,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F0772B81A80B7D4008818F0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		1F695AC91A5576D00078CA90 /* JenkinsWatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JenkinsWatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F695ACD1A5576D00078CA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F695ACE1A5576D00078CA90 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 			children = (
 				1F695AD61A5576D00078CA90 /* JenkinsWatcher.xcdatamodeld */,
 				1F695AD91A5576D00078CA90 /* Images.xcassets */,
+				1F0772B81A80B7D4008818F0 /* PrefixHeader.pch */,
 				1F695ACD1A5576D00078CA90 /* Info.plist */,
 				1F695AD11A5576D00078CA90 /* main.m */,
 			);
@@ -524,6 +526,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = JenkinsWatcher/PrefixHeader.pch;
 				INFOPLIST_FILE = JenkinsWatcher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -536,6 +540,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = JenkinsWatcher/PrefixHeader.pch;
 				INFOPLIST_FILE = JenkinsWatcher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
