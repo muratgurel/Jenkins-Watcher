@@ -27,7 +27,14 @@
         // Longer JSON
         self.fullname = [dictionary objectForKey:@"fullDisplayName"];
         self.buildID = [dictionary objectForKey:@"id"];
-        self.result = [[self class] resultFromString:[[dictionary objectForKey:@"result"] lowercaseString]];
+        
+        if (![[dictionary objectForKey:@"result"] isEqual:[NSNull null]]) {
+            self.result = [[self class] resultFromString:[[dictionary objectForKey:@"result"] lowercaseString]];
+        }
+        else {
+            self.result = BuildResultUnknown;
+        }
+        
         self.isBuilding = [[dictionary objectForKey:@"building"] boolValue];
     }
     else {
